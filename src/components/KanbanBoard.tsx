@@ -17,6 +17,7 @@ import { COLUMN_LABELS, COLUMN_ORDER, ROLE_LABELS } from "@/lib/kanban-types";
 import { isKanbanDemo } from "@/lib/kanban-demo";
 import { canCreateCard, canMoveCard } from "@/lib/permissions";
 import { MaterialIcon } from "@/components/MaterialIcon";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { SimpleDialog } from "@/components/SimpleDialog";
 import {
   KanbanAlternateViews,
@@ -27,7 +28,7 @@ import { NewSolicitationModal } from "./NewSolicitationModal";
 
 function CardDragPreview({ card }: { card: Card }) {
   return (
-    <div className="min-w-[180px] rounded-lg border-l-4 border-l-secondary bg-surface-container-lowest px-3 py-2 shadow-[0px_12px_32px_rgba(25,28,30,0.06)]">
+    <div className="min-w-[180px] rounded-lg border-l-4 border-l-secondary bg-surface-container-lowest px-3 py-2 shadow-[0px_12px_32px_rgba(25,28,30,0.06)] dark:shadow-[0px_12px_32px_rgba(0,0,0,0.35)]">
       <div className="flex items-center gap-1.5">
         <p className="font-headline text-sm font-extrabold text-primary">
           {card.clientName}
@@ -97,8 +98,8 @@ function SidebarNav({
     [
       "flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left transition-all",
       active
-        ? "translate-x-1 border-r-4 border-secondary bg-cyan-50/50 font-semibold text-secondary"
-        : "text-slate-600 hover:bg-slate-200/80 hover:text-primary",
+        ? "translate-x-1 border-r-4 border-secondary bg-secondary/12 font-semibold text-secondary"
+        : "text-on-surface-variant hover:bg-surface-container-high hover:text-primary",
     ].join(" ");
 
   return (
@@ -111,7 +112,7 @@ function SidebarNav({
           <h2 className="font-headline text-lg font-black leading-tight text-primary">
             Ateliê industrial
           </h2>
-          <p className="text-[10px] font-semibold tracking-widest text-slate-500 uppercase">
+          <p className="text-[10px] font-semibold tracking-widest text-on-surface-variant uppercase">
             Unidade principal
           </p>
         </div>
@@ -131,11 +132,11 @@ function SidebarNav({
           </button>
         ))}
       </nav>
-      <div className="space-y-1 border-t border-slate-200/50 px-3 pt-4 pb-6">
+      <div className="space-y-1 border-t border-outline-variant/30 px-3 pt-4 pb-6">
         <button
           type="button"
           onClick={() => onView("status")}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-slate-500 transition-colors hover:bg-slate-200/80 hover:text-primary"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-primary"
         >
           <MaterialIcon name="analytics" className="text-[20px]" />
           <span className="font-label text-[10px] font-semibold uppercase tracking-wider">
@@ -145,7 +146,7 @@ function SidebarNav({
         <button
           type="button"
           onClick={() => onView("help")}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-slate-500 transition-colors hover:bg-slate-200/80 hover:text-primary"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-container-high hover:text-primary"
         >
           <MaterialIcon name="help" className="text-[20px]" />
           <span className="font-label text-[10px] font-semibold uppercase tracking-wider">
@@ -335,8 +336,8 @@ export function KanbanBoard() {
                 onClick={() => setShellView("production")}
                 className={
                   shellView === "production"
-                    ? "border-b-2 border-cyan-400 pb-1 font-headline text-sm font-semibold tracking-wider text-white uppercase"
-                    : "pb-1 font-headline text-sm tracking-wider text-slate-300 uppercase transition-colors hover:text-white"
+                    ? "border-b-2 border-secondary-fixed pb-1 font-headline text-sm font-semibold tracking-wider text-white uppercase"
+                    : "pb-1 font-headline text-sm tracking-wider text-white/70 uppercase transition-colors hover:text-white"
                 }
               >
                 Painel
@@ -346,8 +347,8 @@ export function KanbanBoard() {
                 onClick={() => setShellView("analytics")}
                 className={
                   shellView === "analytics"
-                    ? "border-b-2 border-cyan-400 pb-1 font-headline text-sm font-semibold tracking-wider text-white uppercase"
-                    : "pb-1 font-headline text-sm tracking-wider text-slate-300 uppercase transition-colors hover:text-white"
+                    ? "border-b-2 border-secondary-fixed pb-1 font-headline text-sm font-semibold tracking-wider text-white uppercase"
+                    : "pb-1 font-headline text-sm tracking-wider text-white/70 uppercase transition-colors hover:text-white"
                 }
               >
                 Análises
@@ -355,7 +356,7 @@ export function KanbanBoard() {
               <button
                 type="button"
                 onClick={() => setReportsOpen(true)}
-                className="pb-1 font-headline text-sm tracking-wider text-slate-300 uppercase transition-colors hover:text-white"
+                className="pb-1 font-headline text-sm tracking-wider text-white/70 uppercase transition-colors hover:text-white"
               >
                 Relatórios
               </button>
@@ -373,7 +374,8 @@ export function KanbanBoard() {
               </button>
             ) : null}
             <div className="mx-1 hidden h-8 w-px bg-white/20 sm:block" />
-            <div className="flex items-center gap-2 text-slate-300">
+            <ThemeToggle variant="onBrand" />
+            <div className="flex items-center gap-2 text-white/80">
               <button
                 type="button"
                 onClick={() => setNotifOpen(true)}
@@ -396,7 +398,7 @@ export function KanbanBoard() {
                 <p className="text-xs font-bold leading-tight text-white">
                   {currentUser.name}
                 </p>
-                <p className="text-[10px] tracking-tighter text-slate-400 uppercase">
+                <p className="text-[10px] tracking-tighter text-white/55 uppercase">
                   {ROLE_LABELS[currentUser.role]}
                 </p>
               </div>

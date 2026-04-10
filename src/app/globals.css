@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
 /* Material Symbols: carregado em layout.tsx (link) para os ícones não herdarem Inter */
 
 @theme {
@@ -51,6 +53,53 @@
   --font-label: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Tema escuro — mesmos tokens semânticos; componentes com bg-surface / text-primary etc. herdam. */
+html.dark {
+  color-scheme: dark;
+  --color-primary: #aac7ff;
+  --color-primary-container: #3d4f73;
+  --color-secondary: #4dd9d9;
+  --color-secondary-container: #004f50;
+  --color-secondary-fixed: #8cf3f3;
+  --color-secondary-fixed-dim: #5fd9d8;
+  --color-tertiary: #ffddba;
+  --color-tertiary-container: #5c3d1f;
+  --color-tertiary-fixed: #ffddba;
+  --color-tertiary-fixed-dim: #e0a878;
+  --color-surface: #0f1419;
+  --color-surface-bright: #151c24;
+  --color-surface-dim: #0a0e12;
+  --color-surface-container: #1a222c;
+  --color-surface-container-low: #161d26;
+  --color-surface-container-high: #2a3440;
+  --color-surface-container-highest: #323e4c;
+  --color-surface-container-lowest: #121920;
+  --color-surface-variant: #2a3440;
+  --color-background: #0f1419;
+  --color-on-surface: #e1e6ec;
+  --color-on-surface-variant: #9aa5b4;
+  --color-on-primary: #0a1e3d;
+  --color-on-primary-container: #d4e2ff;
+  --color-on-secondary: #002020;
+  --color-on-secondary-container: #8cf3f3;
+  --color-on-tertiary: #321300;
+  --color-on-tertiary-container: #ffddba;
+  --color-on-background: #e1e6ec;
+  --color-outline: #8d949e;
+  --color-outline-variant: #424a54;
+  --color-error: #ffb4ab;
+  --color-error-container: #5c1f1b;
+  --color-on-error: #690005;
+  --color-on-error-container: #ffdad6;
+  --color-inverse-surface: #e1e6ec;
+  --color-inverse-on-surface: #2d3133;
+  --color-inverse-primary: #1a365d;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
 body {
   @apply bg-surface text-on-surface font-body antialiased;
   min-height: 100vh;
@@ -88,9 +137,20 @@ body {
     radial-gradient(at 100% 100%, rgba(0, 32, 69, 0.05) 0px, transparent 50%);
 }
 
+html.dark .industrial-bg {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(77, 217, 217, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(170, 199, 255, 0.05) 0px, transparent 50%);
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
+}
+
+html.dark .glass-panel {
+  background: rgba(22, 28, 36, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .hide-scrollbar::-webkit-scrollbar {

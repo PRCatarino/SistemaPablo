@@ -6,6 +6,7 @@ import { Suspense, useState } from "react";
 import type { Role } from "@/lib/kanban-types";
 import { ROLE_LABELS } from "@/lib/kanban-types";
 import { MaterialIcon } from "@/components/MaterialIcon";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { SimpleDialog } from "@/components/SimpleDialog";
 
 const ROLES: Role[] = [
@@ -58,6 +59,9 @@ function LoginForm() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-surface p-6 industrial-bg">
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
+      </div>
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute top-[-10%] right-[-10%] h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute bottom-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-secondary/5 blur-3xl" />

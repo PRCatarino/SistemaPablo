@@ -36,8 +36,13 @@ export default async function RootLayout({
   const session = await auth();
 
   return (
-    <html lang="pt-BR" className="light">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var k='artflow-theme';var s=localStorage.getItem(k);var dark=s!=='light';document.documentElement.classList.toggle('dark',dark);}catch(e){document.documentElement.classList.add('dark');}})();`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

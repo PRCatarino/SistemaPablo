@@ -105,7 +105,7 @@ export function KanbanCard({ card }: Props) {
   const threadBorder = inProduction
     ? "border-l-secondary"
     : isFinal
-      ? "border-l-slate-300"
+      ? "border-l-outline-variant"
       : "border-l-secondary/80";
 
   return (
@@ -118,7 +118,7 @@ export function KanbanCard({ card }: Props) {
           "border-l-4",
           threadBorder,
           dragAllowed ? "cursor-grab hover:translate-x-0.5 active:cursor-grabbing" : "",
-          inProduction ? "bg-cyan-50/20 ring-1 ring-cyan-200/80" : "",
+          inProduction ? "bg-secondary/8 ring-1 ring-secondary/35" : "",
           isFinal ? "grayscale transition-all hover:grayscale-0" : "",
         ].join(" ")}
       >
@@ -168,7 +168,7 @@ export function KanbanCard({ card }: Props) {
               <h4
                 className={[
                   "mb-2 font-headline text-sm font-extrabold leading-snug",
-                  isFinal ? "text-slate-500" : "text-primary",
+                  isFinal ? "text-on-surface-variant" : "text-primary",
                 ].join(" ")}
               >
                 {card.clientName}
@@ -210,7 +210,7 @@ export function KanbanCard({ card }: Props) {
             {dragAllowed ? (
               <MaterialIcon
                 name="drag_indicator"
-                className="text-slate-300 text-[18px]"
+                className="text-outline-variant text-[18px]"
               />
             ) : null}
           </div>
