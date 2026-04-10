@@ -24,6 +24,7 @@ export function dbCardToDTO(c: DbCard): ShirtArtCardDTO {
     briefingEscrita: c.briefingEscrita,
     attachmentsCliente: parseUrls(c.attachmentsCliente),
     attachmentsReferencias: parseUrls(c.attachmentsReferencias),
+    designerReturnReason: c.designerReturnReason ?? null,
     createdAt: c.createdAt.toISOString(),
     updatedAt: c.updatedAt.toISOString(),
   };

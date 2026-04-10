@@ -9,6 +9,9 @@ services:
       POSTGRES_DB: trelloroupa
     volumes:
       - pgdata:/var/lib/postgresql/data
+    # Dev local: Next/Prisma no host usam localhost. Em VPS, remova esta seção se o DB for só interno.
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U trelloroupa -d trelloroupa"]
       interval: 5s
@@ -22,6 +25,7 @@ services:
       - "${WEB_PORT:-3000}:3000"
     environment:
       DATABASE_URL: postgresql://trelloroupa:${POSTGRES_PASSWORD:-troque_esta_senha}@db:5432/trelloroupa
+      DIRECT_URL: postgresql://trelloroupa:${POSTGRES_PASSWORD:-troque_esta_senha}@db:5432/trelloroupa
       AUTH_SECRET: ${AUTH_SECRET:?defina AUTH_SECRET no .env}
       AUTH_URL: ${AUTH_URL:-http://localhost:3000}
       UPLOAD_DIR: /app/uploads

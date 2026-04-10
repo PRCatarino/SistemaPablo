@@ -148,9 +148,23 @@ export function KanbanCard({ card }: Props) {
               onClick={() => setDetailOpen(true)}
               className="w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-1 rounded-sm"
             >
-              <p className="mb-1 text-[10px] font-bold tracking-tighter text-on-surface-variant uppercase">
-                ID: #{shortCardId(card.id)}
-              </p>
+              <div className="mb-1 flex items-center gap-1.5">
+                <p className="text-[10px] font-bold tracking-tighter text-on-surface-variant uppercase">
+                  Cód.: #{shortCardId(card.id)}
+                </p>
+                {card.designerReturnReason ? (
+                  <span
+                    className="inline-flex items-center rounded bg-error-container/80 px-1 py-0.5 text-error"
+                    title={card.designerReturnReason}
+                  >
+                    <MaterialIcon
+                      name="warning"
+                      filled
+                      className="text-[14px]"
+                    />
+                  </span>
+                ) : null}
+              </div>
               <h4
                 className={[
                   "mb-2 font-headline text-sm font-extrabold leading-snug",

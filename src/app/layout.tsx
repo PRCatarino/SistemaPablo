@@ -31,6 +31,18 @@ export default async function RootLayout({
 
   return (
     <html lang="pt-BR" className="light">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${manrope.variable} ${inter.variable} min-h-screen font-body`}
       >

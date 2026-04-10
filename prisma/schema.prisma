@@ -3,8 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  /** Conexão direta (:5432) para `prisma migrate deploy`. Na Vercel use pooler em `DATABASE_URL` e esta em `DIRECT_URL`. */
+  directUrl = env("DIRECT_URL")
 }
 
 enum KanbanColumnId {
@@ -36,6 +38,9 @@ model ShirtArtCard {
 
   attachmentsCliente     Json @default("[]") @map("attachments_cliente")
   attachmentsReferencias Json @default("[]") @map("attachments_referencias")
+
+  /** Motivo ao devolver da aprovação para o designer em produção (alerta no card). */
+  designerReturnReason String? @map("designer_return_reason")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

@@ -5,6 +5,7 @@ import { dbCardToDTO } from "@/lib/mappers";
 import { canCreateCard } from "@/lib/permissions";
 import { sessionToKanbanUser } from "@/lib/session-user";
 import { saveCardImages } from "@/lib/uploads";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { NextResponse } from "next/server";
 
@@ -47,7 +48,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error:
-          "Modo demonstração (localStorage). Crie solicitações pelo formulário no app.",
+          "Modo demonstração (armazenamento local). Crie solicitações pelo formulário no aplicativo.",
       },
       { status: 503 }
     );
@@ -61,7 +62,10 @@ export async function POST(req: Request) {
 
   const ct = req.headers.get("content-type") ?? "";
   if (!ct.includes("multipart/form-data")) {
-    return NextResponse.json({ error: "Use multipart/form-data" }, { status: 400 });
+    return NextResponse.json(
+      { error: "Envie o formulário como multipart/form-data." },
+      { status: 400 }
+    );
   }
 
   const form = await req.formData();
@@ -107,47 +111,59 @@ export async function POST(req: Request) {
     }
   }
 
-  const card = await prisma.shirtArtCard.create({
-    data: {
-      columnId: "nova_solicitacao",
-      clientName: parsed.data.clientName.trim(),
-      clientPhone: parsed.data.clientPhone.trim(),
-      briefingModelagem: emptyToNull(parsed.data.briefingModelagem),
-      briefingCor: emptyToNull(parsed.data.briefingCor),
-      briefingFrente: emptyToNull(parsed.data.briefingFrente),
-      briefingCosta: emptyToNull(parsed.data.briefingCosta),
-      briefingPeitoDireito: emptyToNull(parsed.data.briefingPeitoDireito),
-      briefingPeitoEsquerdo: emptyToNull(parsed.data.briefingPeitoEsquerdo),
-      briefingMangaDireita: emptyToNull(parsed.data.briefingMangaDireita),
-      briefingMangaEsquerda: emptyToNull(parsed.data.briefingMangaEsquerda),
-      briefingEscrita: emptyToNull(parsed.data.briefingEscrita),
-      attachmentsCliente: [],
-      attachmentsReferencias: [],
-    },
-  });
-
-  let urlsCliente: string[] = [];
-  let urlsRef: string[] = [];
   try {
-    urlsCliente = await saveCardImages(card.id, "cliente", filesCliente);
-    urlsRef = await saveCardImages(card.id, "referencias", filesRef);
-  } catch {
-    await prisma.shirtArtCard.delete({ where: { id: card.id } });
+    const card = await prisma.shirtArtCard.create({
+      data: {
+        columnId: "nova_solicitacao",
+        clientName: parsed.data.clientName.trim(),
+        clientPhone: parsed.data.clientPhone.trim(),
+        briefingModelagem: emptyToNull(parsed.data.briefingModelagem),
+        briefingCor: emptyToNull(parsed.data.briefingCor),
+        briefingFrente: emptyToNull(parsed.data.briefingFrente),
+        briefingCosta: emptyToNull(parsed.data.briefingCosta),
+        briefingPeitoDireito: emptyToNull(parsed.data.briefingPeitoDireito),
+        briefingPeitoEsquerdo: emptyToNull(parsed.data.briefingPeitoEsquerdo),
+        briefingMangaDireita: emptyToNull(parsed.data.briefingMangaDireita),
+        briefingMangaEsquerda: emptyToNull(parsed.data.briefingMangaEsquerda),
+        briefingEscrita: emptyToNull(parsed.data.briefingEscrita),
+        attachmentsCliente: [],
+        attachmentsReferencias: [],
+      },
+    });
+
+    let urlsCliente: string[] = [];
+    let urlsRef: string[] = [];
+    try {
+      urlsCliente = await saveCardImages(card.id, "cliente", filesCliente);
+      urlsRef = await saveCardImages(card.id, "referencias", filesRef);
+    } catch (uploadErr) {
+      await prisma.shirtArtCard.delete({ where: { id: card.id } }).catch(() => {});
+      console.error("[POST /api/cards] upload", uploadErr);
+      return NextResponse.json(
+        {
+          error:
+            "Falha ao salvar anexos. Verifique permissões da pasta de uploads ou o espaço em disco.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const updated = await prisma.shirtArtCard.update({
+      where: { id: card.id },
+      data: {
+        attachmentsCliente: urlsCliente,
+        attachmentsReferencias: urlsRef,
+      },
+    });
+
+    return NextResponse.json({ card: dbCardToDTO(updated) }, { status: 201 });
+  } catch (err) {
+    console.error("[POST /api/cards]", err);
     return NextResponse.json(
-      { error: "Falha ao salvar anexos" },
+      { error: prismaPostErrorMessage(err) },
       { status: 500 }
     );
   }
-
-  const updated = await prisma.shirtArtCard.update({
-    where: { id: card.id },
-    data: {
-      attachmentsCliente: urlsCliente,
-      attachmentsReferencias: urlsRef,
-    },
-  });
-
-  return NextResponse.json({ card: dbCardToDTO(updated) }, { status: 201 });
 }
 
 function optionalStr(form: FormData, key: string): string | undefined {
@@ -160,4 +176,27 @@ function optionalStr(form: FormData, key: string): string | undefined {
 function emptyToNull(s: string | undefined): string | null {
   if (s == null || s.trim() === "") return null;
   return s.trim();
+}
+
+function prismaPostErrorMessage(err: unknown): string {
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    switch (err.code) {
+      case "P1001":
+        return "Não foi possível conectar ao banco. Confira DATABASE_URL e se o PostgreSQL está acessível.";
+      case "P2021":
+      case "P2010":
+        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy).";
+      case "P2002":
+        return "Conflito de registro único no banco.";
+      default:
+        return `Erro no banco (${err.code}). Tente de novo em instantes.`;
+    }
+  }
+  if (err instanceof Prisma.PrismaClientInitializationError) {
+    return "Falha ao conectar ao banco. Verifique DATABASE_URL no .env.";
+  }
+  if (process.env.NODE_ENV === "development" && err instanceof Error) {
+    return err.message;
+  }
+  return "Erro interno ao criar solicitação.";
 }

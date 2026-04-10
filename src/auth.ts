@@ -17,7 +17,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       id: "credentials",
       name: "credentials",
       credentials: {
-        username: { label: "Nome do usuário", type: "text" },
+        username: { label: "Nome de usuário", type: "text" },
         role: { label: "Cargo", type: "text" },
       },
       authorize: async (credentials) => {

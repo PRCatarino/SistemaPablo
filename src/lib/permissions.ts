@@ -66,3 +66,8 @@ export function adjacentColumn(
 export function canCreateCard(role: Role): boolean {
   return role === "administrador" || role === "atendente";
 }
+
+/** Exige motivo informado pelo usuário antes de mover. */
+export function needsDesignerReturnReason(from: ColumnId, to: ColumnId): boolean {
+  return from === "aguardando_aprovacao" && to === "designer_em_producao";
+}

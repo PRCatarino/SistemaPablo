@@ -33,7 +33,10 @@ export function loadDemoCards(): Card[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(isCardLike) as Card[];
+    return (parsed.filter(isCardLike) as Card[]).map((c) => ({
+      ...c,
+      designerReturnReason: c.designerReturnReason ?? null,
+    }));
   } catch {
     return [];
   }
@@ -136,6 +139,7 @@ export async function buildDemoCardFromFormData(
     briefingEscrita: opt("briefingEscrita"),
     attachmentsCliente,
     attachmentsReferencias,
+    designerReturnReason: null,
     createdAt: now,
     updatedAt: now,
   };

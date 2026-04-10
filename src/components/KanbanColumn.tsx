@@ -13,9 +13,10 @@ import { KanbanCard } from "./KanbanCard";
 type Props = {
   columnId: ColumnId;
   cards: Card[];
+  onColumnMenu?: (columnId: ColumnId) => void;
 };
 
-export function KanbanColumn({ columnId, cards }: Props) {
+export function KanbanColumn({ columnId, cards, onColumnMenu }: Props) {
   const { setNodeRef, isOver } = useDroppable({ id: columnId });
   const thread = COLUMN_THREAD_GRADIENT[columnId];
   const isDone = columnId === "finalizado";
@@ -50,8 +51,10 @@ export function KanbanColumn({ columnId, cards }: Props) {
           </h3>
           <button
             type="button"
+            onClick={() => onColumnMenu?.(columnId)}
             className="rounded p-1 text-on-surface-variant hover:bg-surface-container-high"
             aria-label="Opções da coluna"
+            aria-haspopup="dialog"
           >
             <MaterialIcon name="more_horiz" className="text-[20px]" />
           </button>
@@ -61,6 +64,7 @@ export function KanbanColumn({ columnId, cards }: Props) {
           aria-hidden
         />
         <div
+          id={`kanban-col-scroll-${columnId}`}
           ref={setNodeRef}
           className="hide-scrollbar flex flex-1 flex-col gap-3 overflow-y-auto p-3"
         >

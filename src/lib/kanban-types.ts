@@ -48,6 +48,8 @@ export type ShirtArtCardDTO = {
   briefingEscrita: string | null;
   attachmentsCliente: string[];
   attachmentsReferencias: string[];
+  /** Preenchido ao devolver da aprovação para produção no designer (exige motivo). */
+  designerReturnReason: string | null;
   createdAt: string;
   updatedAt: string;
 };

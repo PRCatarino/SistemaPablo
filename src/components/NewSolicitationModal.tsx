@@ -92,7 +92,7 @@ export function NewSolicitationModal() {
                 Nova solicitação
               </h1>
               <p className="font-body text-xs font-medium tracking-widest text-on-surface-variant uppercase">
-                Workflow de criação têxtil
+                Fluxo de criação têxtil
               </p>
             </div>
           </div>
@@ -194,7 +194,7 @@ export function NewSolicitationModal() {
                   className="text-secondary"
                 />
                 <h2 className="font-headline font-bold tracking-tight text-primary">
-                  Anexos & referências
+                  Anexos e referências
                 </h2>
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
