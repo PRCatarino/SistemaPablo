@@ -3,6 +3,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useKanban } from "@/context/KanbanContext";
+import { isKanbanDemo } from "@/lib/kanban-demo";
 import { canCreateCard } from "@/lib/permissions";
 import { MaterialIcon } from "@/components/MaterialIcon";
 
@@ -19,7 +20,8 @@ const BRIEFING_FIELDS = [
 ] as const;
 
 export function NewSolicitationModal() {
-  const { newCardOpen, setNewCardOpen, currentUser } = useKanban();
+  const { newCardOpen, setNewCardOpen, currentUser, createCardFromForm } =
+    useKanban();
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -31,8 +33,22 @@ export function NewSolicitationModal() {
     setError(null);
     setPending(true);
     const form = e.currentTarget;
-    const fd = new FormData(form);
     try {
+      if (isKanbanDemo()) {
+        const { error } = await createCardFromForm(form);
+        if (error) {
+          setError(error);
+          setPending(false);
+          return;
+        }
+        form.reset();
+        setNewCardOpen(false);
+        await queryClient.invalidateQueries({ queryKey: ["kanban", "cards"] });
+        setPending(false);
+        return;
+      }
+
+      const fd = new FormData(form);
       const r = await fetch("/api/cards", {
         method: "POST",
         body: fd,

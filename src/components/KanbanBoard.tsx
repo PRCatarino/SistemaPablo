@@ -14,6 +14,7 @@ import { useMemo, useState } from "react";
 import { useKanban } from "@/context/KanbanContext";
 import type { Card, ColumnId } from "@/lib/kanban-types";
 import { COLUMN_ORDER, COLUMN_LABELS, ROLE_LABELS } from "@/lib/kanban-types";
+import { isKanbanDemo } from "@/lib/kanban-demo";
 import { canCreateCard, canMoveCard } from "@/lib/permissions";
 import { MaterialIcon } from "@/components/MaterialIcon";
 import { KanbanColumn } from "./KanbanColumn";
@@ -255,6 +256,12 @@ export function KanbanBoard() {
         <SidebarNav />
 
         <main className="ml-0 min-h-screen pt-20 pb-8 md:ml-64 md:px-8 md:pt-20">
+          {isKanbanDemo() ? (
+            <div className="mb-3 border-b border-outline-variant/20 bg-tertiary-fixed/30 px-3 py-2 text-center font-label text-[10px] font-bold tracking-wider text-tertiary uppercase md:mx-0 md:rounded-lg md:border md:px-4">
+              Modo demonstração — quadro salvo neste navegador (localStorage).
+              Sem Postgres. Remova NEXT_PUBLIC_KANBAN_DEMO para produção com banco.
+            </div>
+          ) : null}
           <div className="mb-6 mt-4 flex flex-col gap-4 px-3 sm:flex-row sm:items-end sm:justify-between md:px-0">
             <div>
               <h1 className="mb-1 font-headline text-2xl font-extrabold tracking-tight text-primary uppercase sm:text-3xl">

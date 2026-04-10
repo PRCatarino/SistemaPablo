@@ -10,6 +10,12 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import type { Card, ColumnId } from "@/lib/kanban-types";
+import {
+  buildDemoCardFromFormData,
+  isKanbanDemo,
+  loadDemoCards,
+  saveDemoCards,
+} from "@/lib/kanban-demo";
 import { sessionToKanbanUser } from "@/lib/session-user";
 
 type Bootstrap = { cards: Card[] };
@@ -21,6 +27,7 @@ type KanbanContextValue = {
   visibleCards: Card[];
   moveCardToColumn: (cardId: string, columnId: ColumnId) => Promise<void>;
   refetchKanban: () => Promise<unknown>;
+  createCardFromForm: (form: HTMLFormElement) => Promise<{ error?: string }>;
   newCardOpen: boolean;
   setNewCardOpen: (v: boolean) => void;
 };
@@ -33,14 +40,19 @@ async function fetchBootstrap(): Promise<Bootstrap> {
   return r.json();
 }
 
+async function fetchDemoBootstrap(): Promise<Bootstrap> {
+  return { cards: loadDemoCards() };
+}
+
 export function KanbanProvider({ children }: { children: React.ReactNode }) {
+  const demo = isKanbanDemo();
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
   const currentUser = sessionToKanbanUser(session);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["kanban", "cards"],
-    queryFn: fetchBootstrap,
+    queryFn: demo ? fetchDemoBootstrap : fetchBootstrap,
     enabled: status === "authenticated",
   });
 
@@ -51,6 +63,21 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
 
   const moveCardToColumn = useCallback(
     async (cardId: string, columnId: ColumnId) => {
+      if (demo) {
+        const list = loadDemoCards();
+        const idx = list.findIndex((c) => c.id === cardId);
+        if (idx === -1) return;
+        const now = new Date().toISOString();
+        const next = list.map((c) =>
+          c.id === cardId ? { ...c, columnId, updatedAt: now } : c
+        );
+        saveDemoCards(next);
+        queryClient.setQueryData<Bootstrap>(["kanban", "cards"], {
+          cards: next,
+        });
+        return;
+      }
+
       const r = await fetch(`/api/cards/${cardId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -65,7 +92,27 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
         };
       });
     },
-    [queryClient]
+    [queryClient, demo]
+  );
+
+  const createCardFromForm = useCallback(
+    async (form: HTMLFormElement) => {
+      if (!demo) return { error: "Modo servidor ativo." };
+      try {
+        const card = await buildDemoCardFromFormData(form);
+        const prev = loadDemoCards();
+        const next = [card, ...prev];
+        saveDemoCards(next);
+        queryClient.setQueryData<Bootstrap>(["kanban", "cards"], {
+          cards: next,
+        });
+        return {};
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : "Erro ao criar.";
+        return { error: msg };
+      }
+    },
+    [queryClient, demo]
   );
 
   const value = useMemo<KanbanContextValue>(
@@ -81,6 +128,7 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       visibleCards,
       moveCardToColumn,
       refetchKanban: refetch,
+      createCardFromForm,
       newCardOpen,
       setNewCardOpen,
     }),
@@ -92,6 +140,7 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       visibleCards,
       moveCardToColumn,
       refetch,
+      createCardFromForm,
       newCardOpen,
     ]
   );

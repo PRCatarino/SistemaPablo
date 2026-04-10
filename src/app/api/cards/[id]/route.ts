@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { isKanbanDemo } from "@/lib/kanban-demo";
 import { prisma } from "@/lib/prisma";
 import { dbCardToDTO } from "@/lib/mappers";
 import { canMoveCard } from "@/lib/permissions";
@@ -22,6 +23,16 @@ export async function PATCH(
   req: Request,
   ctx: { params: Promise<{ id: string }> }
 ) {
+  if (isKanbanDemo()) {
+    return NextResponse.json(
+      {
+        error:
+          "Modo demonstração: arraste os cards no navegador (dados no localStorage).",
+      },
+      { status: 503 }
+    );
+  }
+
   const session = await auth();
   const me = sessionToKanbanUser(session);
   if (!me) {
