@@ -1,3 +1,4 @@
+import "@/lib/auth-url-fallback";
 import type { NextAuthConfig } from "next-auth";
 import type { Role } from "@/lib/kanban-types";
 

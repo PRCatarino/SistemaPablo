@@ -16,7 +16,13 @@ const inter = Inter({
   display: "swap",
 });
 
+const metadataBase =
+  process.env.VERCEL_URL != null
+    ? new URL(`https://${process.env.VERCEL_URL}`)
+    : new URL("http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase,
   title: "ArtFlow — Gestão de artes para confecção",
   description:
     "Sistema de gestão de artes para confecção — fluxo Kanban industrial.",
