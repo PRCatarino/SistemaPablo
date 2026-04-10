@@ -5,10 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  /** Conexão direta (:5432) para `prisma migrate deploy`. Na Vercel use pooler em `DATABASE_URL` e esta em `DIRECT_URL`. */
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum KanbanColumnId {

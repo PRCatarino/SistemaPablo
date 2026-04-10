@@ -15,11 +15,20 @@ export async function middleware(request: NextRequest) {
   const isPublic = publicAuthPaths.has(path);
   const isHttps = request.nextUrl.protocol === "https:";
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-    secureCookie: isHttps,
-  });
+  let token = null;
+  try {
+    token = await getToken({
+      req: request,
+      secret: process.env.AUTH_SECRET,
+      secureCookie: isHttps,
+    });
+  } catch {
+    if (!isPublic) {
+      return new NextResponse("Defina AUTH_SECRET nas variáveis de ambiente.", {
+        status: 500,
+      });
+    }
+  }
 
   if (!token && !isPublic) {
     const url = request.nextUrl.clone();

@@ -12,9 +12,8 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-# Placeholders só para `prisma generate` (não conecta ao DB). Runtime usa .env / secrets reais.
+# Placeholder só para `prisma generate` (não conecta ao DB). Runtime usa .env / secrets reais.
 ENV DATABASE_URL="postgresql://placeholder:placeholder@127.0.0.1:5432/placeholder"
-ENV DIRECT_URL="postgresql://placeholder:placeholder@127.0.0.1:5432/placeholder"
 RUN npx prisma generate
 RUN npm run build
 

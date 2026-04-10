@@ -25,7 +25,6 @@ services:
       - "${WEB_PORT:-3000}:3000"
     environment:
       DATABASE_URL: postgresql://trelloroupa:${POSTGRES_PASSWORD:-troque_esta_senha}@db:5432/trelloroupa
-      DIRECT_URL: postgresql://trelloroupa:${POSTGRES_PASSWORD:-troque_esta_senha}@db:5432/trelloroupa
       AUTH_SECRET: ${AUTH_SECRET:?defina AUTH_SECRET no .env}
       AUTH_URL: ${AUTH_URL:-http://localhost:3000}
       UPLOAD_DIR: /app/uploads
