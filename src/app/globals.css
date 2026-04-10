@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+  --board-bg: #0079bf;
+  --column-bg: #f1f2f4;
+  --card-bg: #ffffff;
+  --text: #172b4d;
+  --subtle: #5e6c84;
+}
+
+body {
+  color: #0f172a;
+  background: #f1f5f9;
+  min-height: 100vh;
+}

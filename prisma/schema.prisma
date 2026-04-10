@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum KanbanColumnId {
+  nova_solicitacao
+  designer_pendente
+  designer_em_producao
+  aguardando_aprovacao
+  aguardando_finalizacao
+  finalizado
+}
+
+model ShirtArtCard {
+  id        String @id @default(cuid())
+  columnId  KanbanColumnId @map("column_id")
+
+  clientName  String   @map("client_name")
+  clientPhone String   @map("client_phone")
+  requestDate DateTime @default(now()) @map("request_date")
+
+  briefingModelagem      String? @map("briefing_modelagem")
+  briefingCor            String? @map("briefing_cor")
+  briefingFrente         String? @map("briefing_frente")
+  briefingCosta          String? @map("briefing_costa")
+  briefingPeitoDireito   String? @map("briefing_peito_direito")
+  briefingPeitoEsquerdo  String? @map("briefing_peito_esquerdo")
+  briefingMangaDireita   String? @map("briefing_manga_direita")
+  briefingMangaEsquerda  String? @map("briefing_manga_esquerda")
+  briefingEscrita        String? @map("briefing_escrita")
+
+  attachmentsCliente     Json @default("[]") @map("attachments_cliente")
+  attachmentsReferencias Json @default("[]") @map("attachments_referencias")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("shirt_art_cards")
+}
