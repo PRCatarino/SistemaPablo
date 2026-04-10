@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Card } from "@/lib/kanban-types";
 import { COLUMN_LABELS, type ColumnId } from "@/lib/kanban-types";
+import { MaterialIcon } from "@/components/MaterialIcon";
 
 function formatDate(iso: string) {
   try {
@@ -51,28 +52,34 @@ function ImageGrid({
 }) {
   if (!urls.length) {
     return (
-      <p className="text-sm text-slate-500 italic">Nenhuma imagem anexada.</p>
+      <p className="text-sm italic text-on-surface-variant">
+        Nenhuma imagem anexada.
+      </p>
     );
   }
   return (
     <div>
-      <h4 className="text-xs font-semibold uppercase tracking-wide text-sky-800">
-        {title}
-      </h4>
-      <ul className="mt-2 flex flex-wrap gap-2">
+      <h4 className="font-headline text-lg font-bold text-primary">{title}</h4>
+      <p className="mb-3 text-xs font-medium text-on-surface-variant">
+        {urls.length} arquivo{urls.length !== 1 ? "s" : ""}
+      </p>
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
         {urls.map((src) => (
           <li key={src}>
             <button
               type="button"
               onClick={() => onPick(src)}
-              className="block overflow-hidden rounded-lg border border-slate-200 ring-sky-500/40 hover:ring-2"
+              className="group relative aspect-square w-full overflow-hidden rounded-lg bg-surface-container-high"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt=""
-                className="h-24 w-24 object-cover"
+                className="h-full w-full object-cover transition-transform group-hover:scale-110"
               />
+              <div className="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 transition-opacity group-hover:opacity-100">
+                <MaterialIcon name="zoom_in" className="text-3xl text-white" />
+              </div>
             </button>
           </li>
         ))}
@@ -115,76 +122,112 @@ export function CardDetailDialog({ card, open, onClose }: Props) {
     <>
       <dialog
         ref={ref}
-        className="w-[min(100vw-1.5rem,40rem)] max-h-[min(92vh,44rem)] rounded-xl border border-slate-200 bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-black/50 open:flex open:flex-col"
+        className="w-[min(100vw-1rem,56rem)] max-h-[min(92vh,44rem)] rounded-xl bg-surface-container-lowest p-0 text-on-surface shadow-2xl backdrop:bg-primary/40 open:flex open:flex-col"
         onClose={onClose}
         onClick={(e) => {
           if (e.target === ref.current) onClose();
         }}
       >
-        <div className="flex items-start justify-between gap-3 border-b border-slate-200 px-4 py-3">
-          <div>
-            <h2 className="text-base font-semibold leading-snug">
+        <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-outline-variant/15 bg-surface-bright px-5 py-4">
+          <div className="min-w-0">
+            <button
+              type="button"
+              onClick={onClose}
+              className="mb-2 flex items-center gap-2 font-semibold text-on-surface-variant transition-colors hover:text-primary"
+            >
+              <MaterialIcon name="arrow_back" />
+              <span className="font-label text-[0.6875rem] tracking-widest uppercase">
+                Fechar e voltar
+              </span>
+            </button>
+            <h2 className="font-headline text-xl font-extrabold tracking-tight text-primary">
               {card.clientName}
             </h2>
-            <p className="mt-0.5 text-xs text-slate-500">
-              Solicitação: {formatDate(card.requestDate)} ·{" "}
+            <p className="mt-1 text-xs text-on-surface-variant">
+              {formatDate(card.requestDate)} ·{" "}
               {COLUMN_LABELS[card.columnId as ColumnId]}
             </p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="shrink-0 rounded-lg p-1.5 text-slate-500 hover:bg-slate-100"
+            className="shrink-0 rounded-full p-2 text-on-surface-variant transition-colors hover:bg-surface-container-high"
             aria-label="Fechar"
           >
-            ✕
+            <MaterialIcon name="close" />
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3 text-sm">
-          <dl className="space-y-2 border-b border-slate-100 pb-3">
-            <div>
-              <dt className="text-xs font-medium text-slate-500">Telefone</dt>
-              <dd>{card.clientPhone}</dd>
+        <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 text-sm">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div className="relative overflow-hidden rounded-lg bg-surface-container-lowest p-6 shadow-sm lg:col-span-2">
+              <div className="thread-indicator bg-secondary" />
+              <h3 className="mb-4 pl-2 font-label text-[0.6875rem] font-semibold tracking-wider text-on-surface-variant uppercase">
+                Technical briefing
+              </h3>
+              <dl className="space-y-3 pl-2">
+                {BRIEFING_ROWS.map(({ key, label }) => {
+                  const v = card[key];
+                  const text =
+                    typeof v === "string" && v.trim() ? v : "—";
+                  return (
+                    <div key={key}>
+                      <dt className="font-label text-[0.6875rem] font-medium text-on-surface-variant uppercase">
+                        {label}
+                      </dt>
+                      <dd className="whitespace-pre-wrap text-on-surface">
+                        {text}
+                      </dd>
+                    </div>
+                  );
+                })}
+              </dl>
             </div>
-          </dl>
+            <div className="space-y-5 rounded-lg bg-surface-container-low p-6">
+              <div>
+                <p className="font-label text-[0.6875rem] font-semibold tracking-wider text-on-surface-variant uppercase">
+                  Telefone
+                </p>
+                <p className="font-bold text-primary">{card.clientPhone}</p>
+              </div>
+              <div>
+                <p className="font-label text-[0.6875rem] font-semibold tracking-wider text-on-surface-variant uppercase">
+                  Solicitação
+                </p>
+                <p className="font-bold text-primary">
+                  {formatDate(card.requestDate)}
+                </p>
+              </div>
+              <div>
+                <p className="font-label text-[0.6875rem] font-semibold tracking-wider text-on-surface-variant uppercase">
+                  Etapa
+                </p>
+                <p className="font-bold text-secondary">
+                  {COLUMN_LABELS[card.columnId as ColumnId]}
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <h3 className="mt-4 text-xs font-semibold uppercase tracking-wide text-sky-700">
-            Briefing
-          </h3>
-          <dl className="mt-2 space-y-2">
-            {BRIEFING_ROWS.map(({ key, label }) => {
-              const v = card[key];
-              const text =
-                typeof v === "string" && v.trim() ? v : "—";
-              return (
-                <div key={key}>
-                  <dt className="text-xs font-medium text-slate-500">{label}</dt>
-                  <dd className="whitespace-pre-wrap text-slate-800">{text}</dd>
-                </div>
-              );
-            })}
-          </dl>
-
-          <div className="mt-5 space-y-4 border-t border-slate-100 pt-4">
+          <div className="mt-8 space-y-8 border-t border-outline-variant/15 pt-8">
             <ImageGrid
-              title="Anexos do cliente"
+              title="Arquivos do cliente"
               urls={card.attachmentsCliente}
               onPick={setLightbox}
             />
             <ImageGrid
-              title="Referências"
+              title="Referências da indústria"
               urls={card.attachmentsReferencias}
               onPick={setLightbox}
             />
           </div>
         </div>
 
-        <div className="border-t border-slate-200 px-4 py-3">
+        <div className="border-t border-outline-variant/15 bg-surface-container px-5 py-4">
           <button
             type="button"
             onClick={onClose}
-            className="w-full rounded-lg bg-sky-600 py-2 text-sm font-medium text-white hover:bg-sky-700"
+            className="w-full rounded-lg bg-gradient-to-br from-primary to-primary-container py-3 font-headline text-sm font-bold tracking-wide text-on-primary uppercase transition-all hover:brightness-110"
           >
             Fechar
           </button>
@@ -194,7 +237,7 @@ export function CardDetailDialog({ card, open, onClose }: Props) {
       {lightbox ? (
         <button
           type="button"
-          className="fixed inset-0 z-[60] flex cursor-zoom-out items-center justify-center bg-black/90 p-4"
+          className="fixed inset-0 z-[200] flex cursor-zoom-out items-center justify-center bg-black/90 p-4"
           onClick={() => setLightbox(null)}
           aria-label="Fechar ampliação"
         >

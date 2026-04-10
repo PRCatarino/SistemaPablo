@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ArtFlow - Briefing Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed-dim": "#adc7f7",
+                        "on-surface-variant": "#43474e",
+                        "tertiary-fixed-dim": "#f2bc82",
+                        "on-tertiary-fixed": "#2b1700",
+                        "secondary": "#006a6a",
+                        "on-secondary-fixed": "#002020",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed-dim": "#6fd7d6",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-primary": "#adc7f7",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "primary-container": "#1a365d",
+                        "on-tertiary-fixed-variant": "#633f0f",
+                        "on-tertiary-container": "#c6955e",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#74777f",
+                        "on-primary-fixed": "#001b3c",
+                        "surface-tint": "#455f88",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed": "#8cf3f3",
+                        "surface-container": "#eceef0",
+                        "background": "#f7f9fb",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "tertiary-fixed": "#ffddba",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary": "#321b00",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#007070",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#8cf3f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-container": "#4f2e00",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#002045",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#86a0cd",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+        .tonal-gradient {
+            background: linear-gradient(135deg, #002045 0%, #1a365d 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- Top Navigation Anchor (Task-Focused - SideNav Suppressed) -->
+<header class="fixed top-0 w-full z-50 bg-[#002045] dark:bg-slate-950 flex justify-between items-center px-6 h-16 w-full elevation-0 surface-shift">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white text-2xl" data-icon="factory">factory</span>
+<h1 class="font-['Manrope'] headline-lg font-bold tracking-tight text-2xl text-white tracking-widest uppercase">ArtFlow</h1>
+</div>
+<button class="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+<span class="font-label text-sm font-medium">Fechar e voltar ao quadro</span>
+</button>
+</header>
+<main class="pt-24 pb-12 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Primary Content: Client Needs & Briefing -->
+<section class="lg:col-span-8 space-y-8">
+<!-- Hero Briefing Header -->
+<div class="bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-xs font-bold font-label tracking-wider mb-2 inline-block">PRODUCTION #8821</span>
+<h2 class="text-3xl font-headline font-extrabold text-primary tracking-tight leading-none mb-2">Summer Bloom Silk Collection</h2>
+<p class="text-on-surface-variant font-medium">Briefing for high-density jacquard weaving patterns</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-1">Status</span>
+<span class="bg-secondary-container/30 text-on-secondary-container border border-secondary px-4 py-1 rounded-full text-sm font-bold">In Progress</span>
+</div>
+</div>
+<!-- Read-Only Briefing Content -->
+<div class="space-y-6 text-on-surface">
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block mb-2">Objective</label>
+<p class="text-lg leading-relaxed font-normal">
+                            Create a series of intricate botanical patterns inspired by Mediterranean summer gardens. The designs must translate effectively into silk-blend jacquard with a focus on tactile depth and subtle metallic thread highlights.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-outline-variant/15">
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block mb-2">Technical Specifications</label>
+<ul class="space-y-2 text-sm text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 2400 hook electronic jacquard</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 100% Silk weft / Poly-Cotton warp</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Maximum 8 color weft rotation</li>
+</ul>
+</div>
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block mb-2">Key Deliverables</label>
+<ul class="space-y-2 text-sm text-on-surface-variant">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 3 Unique repeat patterns (64x64cm)</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Digital simulation for warp tension</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Color-way cards (Morning, Dusk, Midnight)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Image Gallery: Arquivos do Cliente -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="cloud_download">cloud_download</span>
+                        Arquivos do Cliente
+                    </h3>
+<span class="text-sm font-label font-medium text-on-surface-variant">4 Files</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="group relative aspect-square bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Client Sketch 1" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="close-up of detailed hand-drawn charcoal botanical sketches on vintage cream paper with elegant strokes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANHDKNNshOr7LHfUFd4l_Y53RUCudhW8SEthb1wQ_rjrWP3owPrYvWMBDVKbwRtq5fXL8gn3n-Xw_4LvKkGURUkl4DwRqqMIgy3FlGYFFNbTXxNlYi2DQexGIs9XzAyKLEcbMXB7ixsWJPomNbcPyCX1TB2DoDdAs4fQmwOOETjBF2jJw5Z63E1Chlf5yN1L1yPXx5aMLssVlfSeoJx3ttY3dk9DsKkXGshnZWgAlOesc--wLVsJ9F2NqLRP76Wb77o1DWSGw6H0jA"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Fabric Sample" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="macro texture of luxury teal silk fabric with intricate woven floral patterns and soft highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu6nDYuWS67_czKOXVlI5y3Ru5poYt8NpwWHZfg3EhWU9tJEV8V0mCF6X6LiJ51DIYFjLuQ9hiD0Z4HVoOf6gUV65aV_pLYQ3MWjULJQAWQHXYjdNAwKO5B1h44fIsFdmkcyYOBtZMo69d4xuTHQc_N7119itahAcWtEEx8IdJDgo3VQBbu_PhtrV40kDhGjzc_IzEnAvxa5oW9sQaCVRGdxaglpgeiRYuU2IEj-jJ2t9HjVYLtcj4OOV7Pva163KnsOvVdtwoCBSL"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Color Palette" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="set of physical pantone color chips in shades of blue, teal, and gold arranged on a white table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvL7Sk_a7EF0cVOCWo_jJLflMeXUcdgQxaymFUUveH6w9zru-z0SxZRwup65ju_PL6N3LbMfeU5Ymqua8ldQTNHm7D3kh0_oe1HP9GghJHObGhLmDpQZ97qJzx_dnQwOHxmWhas2uUMtmKUzAhCA5f0AeZ2sMAw3Yuhz-AXHFqujnG6M7JddsBeely6w5fYX2qL58-LqxcaQeU-7SXRjJnhTNq7p2rtPqwf731TvzMGkiEYVmQv5Q6Bdfbf6C4B-AdJGs6n_Fpul7v"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container rounded-lg overflow-hidden flex flex-col items-center justify-center border-2 border-dashed border-outline-variant text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-3xl mb-1" data-icon="add_circle">add_circle</span>
+<span class="text-xs font-bold uppercase tracking-widest">Add More</span>
+</div>
+</div>
+</div>
+<!-- Image Gallery: Referências -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-xl font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Referências
+                    </h3>
+<span class="text-sm font-label font-medium text-on-surface-variant">Moodboard Inspiration</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group relative aspect-video bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Inspiration 1" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="dramatic close-up of classical italian sculpture with soft warm directional lighting and shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGy1K_Q_Rfvz0tqj27gYzdRDwwgaYQxqeAYvDSJuoB-KKVxeUjG-y3jb_ubvG1BfOSgdQu60A47WDwKavYhDR5uS-dBgeGrjCuTDSPKigrcWYppJxZ8AIIMUbpSO3uPE8wk4AOI3WJOx3hivajWo4juq-X4G1kEFm4KFdDJyiRcvs0Amr2JsA800SYehsbLP6w5xpk-wT0SyFaYLngZVvGr5WYFHlEk09k104_1Jwx92YLZ_ccqsfekYtIejqFqgHLWYAgnX-vyZ8c"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="text-xs font-bold uppercase">Texture Reference</p>
+</div>
+</div>
+<div class="group relative aspect-video bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Inspiration 2" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="panoramic landscape of a misty garden at dawn with layers of blue and green foliage in soft focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN_Uk2DjrJmXzkRykjXXTPyIjFc9gGoBenfm1n7oydXiCpENfbKt8XvLj7L1r2LeH4AAh0_UbauL0mm48kLPPrSsEiB4uwER4xSsEqdW0zbTu88rScQ6Y9aaJ8NBBgLqk2pOnuON6MPKFZGHu_PEBChXCrHdqepXWdiBXqYN3hlGEL3XIa4Qpv95jjFBUv2v50__o2mLELTo5jBKyFwZ9qUOKse85DXDExROZrc7Rj2ZWMs_Nsxzp2EnRQkIqk9ZpLUEaP7rYVPmAm"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="text-xs font-bold uppercase">Color Mood</p>
+</div>
+</div>
+<div class="group relative aspect-video bg-surface-container rounded-lg overflow-hidden cursor-pointer ring-0 hover:ring-2 ring-secondary transition-all">
+<img alt="Inspiration 3" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="abstract flowing oil painting with swirls of deep navy, gold, and teal with thick impasto texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_NtEo5CQ9Ak0N-lPc2n5Q3rsvzuh9gmUrPStXiT7S4PRdlOKg20jL3L2PKf6E3pSCGZY1cyBN350KIw8WAFlX4aHYLV2XuNn3XIZ9xq4KUa_OhhWNPeitpaKflUSzQ0G6kU7LBmZrnkNVvW5IW7Hn542yxYdmDXclDNf6p9iM8ki9i7wFzSjIJ23WfTDUc5N-Ka6xmLwCgFuK8j_LvEs_THOUstPbfaAhMQWUBkRVLXEeEphL3hGVbhiyK0yc_YfI8gjMORUyDtz5"/>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<p class="text-xs font-bold uppercase">Flow &amp; Motion</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Sidebar: Metadata & Responsible Staff -->
+<aside class="lg:col-span-4 space-y-6">
+<!-- Metadata Card -->
+<div class="bg-surface-container-low p-6 rounded-xl space-y-6">
+<h4 class="font-headline text-lg font-bold text-primary border-b border-outline-variant/30 pb-4">Timeline &amp; Meta</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container/20 flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+</div>
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block">Started Date</label>
+<span class="text-sm font-semibold">Oct 12, 2023</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-tertiary-container/20 flex items-center justify-center text-tertiary shrink-0">
+<span class="material-symbols-outlined" data-icon="alarm">alarm</span>
+</div>
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block">Deadline</label>
+<span class="text-sm font-semibold text-error">Nov 05, 2023 (12 days left)</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-secondary-container/20 flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<div>
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block">Facility</label>
+<span class="text-sm font-semibold">Atelier Hall A - Loom 12</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/30">
+<label class="text-[0.6875rem] font-label font-bold uppercase tracking-widest text-on-surface-variant block mb-4">Production Team</label>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Manager" class="w-8 h-8 rounded-full object-cover" data-alt="portrait of a professional mature man with glasses in a creative office setting, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgsoHY3X4kvxjA-_99E3kGsSjpVrTuMEEt-ZXtxZ2u-6cYG0J6WoufkhmlykBYWJq_URTDmQWvpQaMeleSi_Hj83UcQcPgNfIRTFisC0zEeletuFe_sLZuRgoU0jWfOlxMrtycB7gywXT5BnhsSUbkLdQS93D5XYNYt2deMbjmYQCgfcMI-bHd7HSmP_ABMqx7hz-CgOqG2dVbaie-qj9GEeCcStA5D8tXpQ7pVo-UymnYGCXkKGW6P5WZSVNgUzEz_4sLmO9lrRdX"/>
+<div>
+<p class="text-sm font-bold leading-none">Marcus Thorne</p>
+<p class="text-[0.6875rem] text-on-surface-variant">Atelier Manager</p>
+</div>
+</div>
+<span class="bg-secondary/10 text-secondary text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Lead</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Designer" class="w-8 h-8 rounded-full object-cover" data-alt="portrait of a young woman with a focused expression in a brightly lit studio, soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN8oxmBDGYKT3u7gb4IvaOY0JoJaTm6R5Y8mvh-khrMMYrRo16tUCwBzGxxGjX439QZWqY4FSNaUNfrVBKjDQj_cyLPL3lK5j81uz86-GQBtGx9Na9BQ8z41e0XoGuDa7YkMM-PPKWSbt8oxQdGyV-jtNkUoSN1Uw1WrQ193snF2y94qwMttDZJWLhvyeMjsWZzr6LWvbOXxrMDMh-lNpzjc4i_KGmq4IOT0OFK9xlGEFhRACnu0X-AunuPorlNMuNgXRWDI6GHSHQ"/>
+<div>
+<p class="text-sm font-bold leading-none">Elena Rossi</p>
+<p class="text-[0.6875rem] text-on-surface-variant">Pattern Designer</p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">JS</div>
+<div>
+<p class="text-sm font-bold leading-none">Julien Sorel</p>
+<p class="text-[0.6875rem] text-on-surface-variant">Technician</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Card (Quick Stats) -->
+<div class="bg-primary text-white p-6 rounded-xl tonal-gradient shadow-xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="analytics">analytics</span>
+<h5 class="font-headline font-bold">Production Efficiency</h5>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-xs font-label uppercase tracking-widest text-primary-fixed-dim">Current Warp Speed</span>
+<span class="text-xl font-bold">84%</span>
+</div>
+<div class="h-1 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[84%]"></div>
+</div>
+<p class="text-[10px] text-primary-fixed-dim italic">Optimal loom performance for silk-jacquard is 82-88%.</p>
+</div>
+</div>
+<!-- Activity Log (Simplified) -->
+<div class="bg-surface-container-high p-6 rounded-xl">
+<h4 class="font-headline text-sm font-bold text-on-surface mb-4 uppercase tracking-widest">Recent Activity</h4>
+<div class="space-y-4 border-l-2 border-outline-variant/30 ml-2 pl-4">
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-secondary ring-4 ring-surface-container-high"></div>
+<p class="text-xs font-bold">Files Uploaded</p>
+<p class="text-[10px] text-on-surface-variant">Elena Rossi • 2h ago</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant ring-4 ring-surface-container-high"></div>
+<p class="text-xs font-bold">Review Completed</p>
+<p class="text-[10px] text-on-surface-variant">Marcus Thorne • 5h ago</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant ring-4 ring-surface-container-high"></div>
+<p class="text-xs font-bold">Project Initialized</p>
+<p class="text-[10px] text-on-surface-variant">System • Yesterday</p>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Floating Action Button for focused screen (Suppressed based on logic but here for context if needed for actions) -->
+<!-- Suppressed: We are on a detail sub-page -->
+</body></html>

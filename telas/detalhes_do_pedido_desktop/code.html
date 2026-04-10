@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Details | ArtFlow Industrial Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#f2bc82",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e0e3e5",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffddba",
+                        "surface-tint": "#455f88",
+                        "primary-fixed-dim": "#adc7f7",
+                        "on-tertiary-fixed-variant": "#633f0f",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary": "#321b00",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#006a6a",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#2b1700",
+                        "secondary-fixed-dim": "#6fd7d6",
+                        "inverse-primary": "#adc7f7",
+                        "on-tertiary-container": "#c6955e",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "error": "#ba1a1a",
+                        "primary": "#002045",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-background": "#191c1e",
+                        "tertiary-container": "#4f2e00",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed": "#002020",
+                        "primary-container": "#1a365d",
+                        "error-container": "#ffdad6",
+                        "surface": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "secondary-container": "#8cf3f3",
+                        "on-surface-variant": "#43474e",
+                        "surface-dim": "#d8dadc",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed": "#001b3c",
+                        "secondary-fixed": "#8cf3f3",
+                        "outline-variant": "#c4c6cf",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "on-secondary-container": "#007070",
+                        "on-primary-container": "#86a0cd",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "outline": "#74777f",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+        .thread-indicator {
+            width: 4px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-[#002045] dark:bg-slate-950 font-manrope headline-lg uppercase tracking-tight docked full-width top-0 z-50 shadow-lg flex justify-between items-center w-full px-6 py-3 fixed">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-white tracking-widest">ArtFlow</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-slate-300 hover:text-white transition-colors" href="#">Dashboard</a>
+<a class="text-slate-300 hover:text-white transition-colors" href="#">Analytics</a>
+<a class="text-slate-300 hover:text-white transition-colors" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 bg-gradient-to-br from-primary to-primary-container text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:opacity-90 transition-all">Create Batch</button>
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined cursor-pointer hover:bg-white/10 p-2 rounded-full">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-white/10 p-2 rounded-full">settings</span>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-white/20 ml-2" data-alt="close up professional headshot of a textile engineer in a bright modern studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZxCn9QDliL7bD7behGw4zXUqInamGWazpSe7Sl3I1thUctbbI-I2oma_2o3jHGZRGIFr-QeTIKYMSXgbLiWg2Nhfz1PdeNwUIyj8-P16u73Swpn3i3DWhS5UTb7C0znKVoEKlazs7TgoEJ8Fyhh7SoIqRf8bvktJ0QPNiUTGi4nMfumtKo6J7Xrf9eeR4pZG71UctAKokl7-bbmrW95r504FY_BaQ5Us_a6zAYShelHTXsljw-M-9Snyd5y1MP2E34F2EZEI-SItc"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="bg-slate-50 dark:bg-slate-900 h-screen w-64 border-r-0 fixed left-0 top-0 bottom-0 flex flex-col pt-20 transition-all duration-200 ease-in-out">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded flex items-center justify-center text-white font-black">IA</div>
+<div>
+<p class="text-lg font-black text-[#002045] dark:text-white leading-tight">Industrial Atelier</p>
+<p class="text-[10px] font-inter label-sm uppercase tracking-wider font-semibold text-slate-500">Main Facility</p>
+</div>
+</div>
+</div>
+<nav class="flex-1">
+<ul class="space-y-1">
+<li><a class="flex items-center gap-4 px-6 py-3 text-[#006a6a] border-r-4 border-[#006a6a] bg-cyan-50/50 dark:bg-cyan-900/20 translate-x-1 transition-transform font-inter label-sm uppercase tracking-wider font-semibold" href="#">
+<span class="material-symbols-outlined">factory</span> Production</a></li>
+<li><a class="flex items-center gap-4 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all font-inter label-sm uppercase tracking-wider font-semibold" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span> Loom Monitor</a></li>
+<li><a class="flex items-center gap-4 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all font-inter label-sm uppercase tracking-wider font-semibold" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Inventory</a></li>
+<li><a class="flex items-center gap-4 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all font-inter label-sm uppercase tracking-wider font-semibold" href="#">
+<span class="material-symbols-outlined">verified</span> Quality Control</a></li>
+<li><a class="flex items-center gap-4 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all font-inter label-sm uppercase tracking-wider font-semibold" href="#">
+<span class="material-symbols-outlined">local_shipping</span> Shipments</a></li>
+</ul>
+</nav>
+<div class="px-6 py-6 mt-auto space-y-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-4 text-slate-500 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">System Status</span>
+</div>
+<div class="flex items-center gap-4 text-slate-500 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Help</span>
+</div>
+</div>
+</aside>
+<!-- Main Content: Order Details Screen -->
+<main class="pl-64 pt-[60px] min-h-screen">
+<!-- Close and Back Header -->
+<div class="bg-surface-bright px-8 py-4 flex justify-between items-center sticky top-[56px] z-40">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-semibold">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-inter label-sm uppercase tracking-widest">Fechar e voltar</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/30"></div>
+<h1 class="font-headline text-2xl font-extrabold tracking-tight text-primary">Batch #TL-992: Jacquard Premium</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-4 py-1.5 rounded-full text-xs font-bold bg-secondary/10 text-secondary border border-secondary/20 uppercase tracking-widest">In Production</span>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<div class="p-8 grid grid-cols-12 gap-8">
+<!-- Left Column: briefing and images -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Bento Section: Briefing & Metadata -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Technical Briefing -->
+<div class="md:col-span-2 relative bg-surface-container-lowest p-6 rounded-lg overflow-hidden shadow-sm">
+<div class="thread-indicator bg-secondary"></div>
+<h3 class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant mb-4">Technical Briefing</h3>
+<p class="text-on-surface leading-relaxed text-sm">
+                            High-density weaving required for the intricate floral pattern. The warp tension must be maintained at 12N to prevent slippage on the silk-poly blend. Client expects a matte finish with metallic thread highlights in the petal centers. Ensure the selvedge is tightly finished for high-end upholstery application.
+                        </p>
+</div>
+<!-- Metadata -->
+<div class="bg-surface-container-low p-6 rounded-lg space-y-4">
+<div>
+<p class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant">Scheduled Start</p>
+<p class="font-bold text-primary">Oct 24, 2023</p>
+</div>
+<div>
+<p class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant">Production Deadline</p>
+<p class="font-bold text-error">Nov 12, 2023</p>
+</div>
+<div class="pt-2">
+<p class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant mb-2">Priority Level</p>
+<div class="flex gap-1">
+<div class="h-1.5 w-8 rounded-full bg-secondary"></div>
+<div class="h-1.5 w-8 rounded-full bg-secondary"></div>
+<div class="h-1.5 w-8 rounded-full bg-secondary"></div>
+<div class="h-1.5 w-8 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Gallery 1: Arquivos do Cliente -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-lg font-bold text-primary">Arquivos do Cliente</h3>
+<span class="text-xs text-on-surface-variant font-medium">4 items uploaded</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="group relative aspect-square bg-surface-container-high rounded-lg overflow-hidden cursor-pointer">
+<img alt="Technical drawing" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="detailed technical blueprint of a textile pattern with measurements and thread count notations on architectural paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQVrLFJ6D4-Wvl-JOrPFGC31OQihPt7drKRbNeLHypdfv8CkOlHJUcMcWWnU4aekJoIbCOdqM7qMgp93ewOasZgSYhDf85RKpY2Rvlhj2SRaiHLYBANZ4dxxTQdkIsaABygGZvEooGOTuos4RPiWyOGI9PoKjx7vLFz_GP8miqZyILbr0emhbNth5YkBrME7m0YYRUc7B5I3DPxQN7Hy1r_2mCeCqVv61QcPx41qLEEwTaAt4BhMPpaWQsnS4sgkkRWpUp3DzFCyGb"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container-high rounded-lg overflow-hidden cursor-pointer">
+<img alt="Color swatch" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="macro photograph of a deep teal silk fabric swatch showing the fine weave texture and subtle sheen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe3VLZGrRhNFZp5VLCNZdu0FXK8UW18dob8uRJU-Ptq5IZ1D2waT3MYst83gDcLAJC6_3-Sohqi_oowh2ne6EZbrXM2wLrKMUpFMc3KnvIYCe7Grj_ybNMXQ4dDgSb-w5mgDo2xsKSesE6wi4z_UXePqbTAlEgnaqePHLHhsjcT8MmsFNHSUqlNnm_hnKGreMEFB843S6hH2kb0mWd3ieV5WW4B1aFlk_Fmy2GZPWJxB_DsInfEZpAfb3J1v880jjcDswpKKAKYuEw"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container-high rounded-lg overflow-hidden cursor-pointer">
+<img alt="3D Mockup" class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="3d render of a luxury sofa upholstered in a custom floral jacquard fabric in a minimalist living room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYQL5PiVQDib3vwNgLdti62bpf3KXJh2qu_FrnT-tscYMTIdLAuM3tlQRWxT1qWm_2neJ5Bv-kKgtPbCyBCV6lKU3Zgm8XxpTiCGjPaOjo10wqspLty2gdZXZ6kuzmtcXsAAtfBibZZycTqi_WfrDsvDhrMUnxOp3V8kyCFop511k5VCDI1RNUAuIYfOCf7FGJmmT7YNc0SnZSXjGbkpND6fkN17lpugyTAcJyY3mglO5OdUE3gHLU6Om_rfLGEw2TMl8YLVfsftTT"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+</div>
+</div>
+<div class="group relative aspect-square bg-surface-container-high rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-3xl mb-1">add_circle</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Upload</span>
+</div>
+</div>
+</section>
+<!-- Gallery 2: Referências da Indústria -->
+<section class="space-y-4">
+<h3 class="font-headline text-lg font-bold text-primary">Referências da Indústria</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="group relative h-48 bg-surface-container-low rounded-lg overflow-hidden">
+<img alt="Industry reference 1" class="w-full h-full object-cover" data-alt="vintage jacquard loom in motion with intricate golden threads being woven into a complex tapestry" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-0hlxPUVhRkzsGmPjQjbQ02K1SFIFepLGx4ml7pYe6VnDIO9RpTJUPqTZ5sS3Ca_RjJa6RIxH28PV0Ep9FCFdLgUDzQh3gjw-rk1PLvcirP6BXxo57-Z_72c30qzekUBvYD8RhroStgyDNjyoPYFiPd4Jg1OFxeQmGye8coqmDe1hriTgsSMVBkz4jcWyrDfyEzGP-VN-m0cuN6Fhta6j0ET8BZ17eYKrbGn3dHOvje-wF00Lf32kaWFZm5ZjzULuxWbsBEnRIl05"/>
+<div class="absolute bottom-0 inset-x-0 glass-panel p-4 flex justify-between items-center">
+<div>
+<p class="text-xs font-bold text-primary">Archive: Lyon Weave 1920</p>
+<p class="text-[10px] text-on-surface-variant">Structural integrity reference</p>
+</div>
+<button class="bg-primary text-white p-2 rounded-lg hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-sm">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="group relative h-48 bg-surface-container-low rounded-lg overflow-hidden">
+<img alt="Industry reference 2" class="w-full h-full object-cover" data-alt="close up of contemporary high-fashion textile design showing metallic embroidery over dark velvet background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYai5CJPtg54c8d9X7Ma-rZHMtSXfzrEn4nEdIRLm9XhTsAwMlQlEhKyO-tXcTS-6VXFOcUqJEcdqBtsvCij_jaSyoINjJiHccHalYnWxbcJDOdvv7aO7j4rnTRccg1Hh5EVFvAn5vzim916r0oJGT3S5owTeWIsojxxe-36GymHJOZQF8nG-UCzIgSidkWWLN1DWBVXv2z1boC4M7Y7lSfgW9ZpxhpUCZZWK7DR-cisFggH0ZHqAzJHLZtZ1PblLawXcgaMTtnJ4s"/>
+<div class="absolute bottom-0 inset-x-0 glass-panel p-4 flex justify-between items-center">
+<div>
+<p class="text-xs font-bold text-primary">Trend: Metallic Infusion</p>
+<p class="text-[10px] text-on-surface-variant">Visual finish reference</p>
+</div>
+<button class="bg-primary text-white p-2 rounded-lg hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-sm">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Team and Timeline -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Production Team -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm border-l-4 border-tertiary">
+<h3 class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant mb-6">Production Team</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<img alt="Team member" class="w-10 h-10 rounded-full" data-alt="portrait of a focused female textile designer with glasses in a bright workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChK7QAoJn2tiiNtjukse-PAE9EB3dTWD3rs9OGB7TBIQWqbEcAi4FKQ2hy1ff3omItvAc9HDFlBmHyIzey_fwP3JG3WcbTtvJG8lhtz9n-2Vc2iZEzySCOyy2_Fb5iUEtL4lna2_MdoiOAN4hqQRdRNFdZ8snW_g_bwhserTyt1t7WD-a19gvXG4GuqfrkTlH-TWEOWQLBI9fwGKx_nZX9TnzkUUzLLtPkPVCZIEOIumTO59ndyo55XWbCWGRCqOVKA1tLO-DcTNJM"/>
+<div>
+<p class="text-sm font-bold text-primary">Alessandra Martins</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Lead Weaver</p>
+</div>
+<span class="ml-auto material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Team member" class="w-10 h-10 rounded-full" data-alt="portrait of a professional male technician in a clean industrial uniform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw-WvxXsb91GaQUXW61oSqTC7Xw9PTDOniR2nwKOUPcd7kvz6-uHAdLDJbLhy77--pJrz9BwriyD5MD0X7t3y-56b4CvA3xyv5wpJyz4RpyuyzFg3_sEgg9-CCS1zpwozKJozmdM_iLBOgKhrQVPRdQ_ddfQO1zS_tYnTqwcByZg_PlFLarqPHw6jktu8WjUmG2jGpfxSug3juh0EN5EOvl0baJGbz1H2jVuUU_KN1FAZ7pcqr7681ZDAJD-Uk5iBXPNU5tWrQoZkC"/>
+<div>
+<p class="text-sm font-bold text-primary">Roberto K. Silva</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Quality Inspector</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<img alt="Team member" class="w-10 h-10 rounded-full" data-alt="portrait of a young male apprentice working with colorful threads in a factory" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYM8alCdunb_lTI7_DrO1JO5pqYoNAyDgrwCumRTb4msFz3IUApuU2IUUHJgD1z4T0KzcCc4ULDgkKXOGQgKQos_zD0Hc7JiiVTp5nUHyWnugNEsjXmARUYf-hhhIWmUPwfb6vUHl4aGmwA5KQ9cjyGpL4Lp3MEnfzizxMU_tpgyXfvUYxTiAV6Fb8tmo8G05NSSkkP0wa4Ep6CIEhFqvvk44EZxQ8eutQSJehjh5IiB2T9Ejg2c-BHWYDrnSn8Rh_XuoOXp9oLqnz"/>
+<div>
+<p class="text-sm font-bold text-primary">Jonas Lima</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Loom Assistant</p>
+</div>
+</div>
+<button class="w-full mt-4 py-2 border border-outline-variant text-on-surface-variant font-bold text-[10px] uppercase tracking-widest rounded-lg hover:bg-surface-container hover:text-primary transition-all">Assign New Member</button>
+</div>
+</div>
+<!-- Activity Timeline -->
+<div class="bg-surface-container-low p-6 rounded-lg">
+<h3 class="font-inter label-sm uppercase tracking-wider font-semibold text-on-surface-variant mb-6">Activity History</h3>
+<div class="relative space-y-8 pl-6">
+<!-- Vertical line -->
+<div class="absolute left-[7px] top-2 bottom-2 w-0.5 bg-outline-variant/30"></div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-surface-container-low"></div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Today, 09:42 AM</p>
+<p class="text-sm font-bold text-primary">Production Started</p>
+<p class="text-xs text-on-surface-variant">Loom #42 initialized for batch TL-992.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-outline ring-4 ring-surface-container-low"></div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Yesterday, 03:15 PM</p>
+<p class="text-sm font-bold text-primary">QA Verified</p>
+<p class="text-xs text-on-surface-variant">Warp tension approved by Roberto K. Silva.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-outline ring-4 ring-surface-container-low"></div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Oct 23, 11:20 AM</p>
+<p class="text-sm font-bold text-primary">Materials Prepped</p>
+<p class="text-xs text-on-surface-variant">Silk-poly blend yarn moved to production floor.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-outline ring-4 ring-surface-container-low"></div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">Oct 20, 09:00 AM</p>
+<p class="text-sm font-bold text-primary">Batch Created</p>
+<p class="text-xs text-on-surface-variant">Order received from Interior Design Group.</p>
+</div>
+</div>
+</div>
+<!-- Quick Actions Card -->
+<div class="bg-gradient-to-br from-primary to-primary-container p-6 rounded-lg text-white shadow-xl">
+<h4 class="font-headline font-bold mb-2">Production Status</h4>
+<p class="text-xs opacity-80 mb-6">Estimated completion in 14 days. No bottlenecks detected.</p>
+<div class="space-y-3">
+<button class="w-full py-3 bg-secondary text-white font-bold text-xs uppercase tracking-widest rounded shadow-sm hover:opacity-90 transition-all">Log Production Unit</button>
+<button class="w-full py-3 bg-white/10 text-white font-bold text-xs uppercase tracking-widest rounded hover:bg-white/20 transition-all">Request Technical Review</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global FAB Suppression: None rendered for Details page per mandate -->
+</body></html>

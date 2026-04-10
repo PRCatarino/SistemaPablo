@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed-dim": "#adc7f7",
+                    "on-surface-variant": "#43474e",
+                    "tertiary-fixed-dim": "#f2bc82",
+                    "on-tertiary-fixed": "#2b1700",
+                    "secondary": "#006a6a",
+                    "on-secondary-fixed": "#002020",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#c4c6cf",
+                    "secondary-fixed-dim": "#6fd7d6",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-primary": "#adc7f7",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "primary-container": "#1a365d",
+                    "on-tertiary-fixed-variant": "#633f0f",
+                    "on-tertiary-container": "#c6955e",
+                    "surface-dim": "#d8dadc",
+                    "outline": "#74777f",
+                    "on-primary-fixed": "#001b3c",
+                    "surface-tint": "#455f88",
+                    "on-surface": "#191c1e",
+                    "secondary-fixed": "#8cf3f3",
+                    "surface-container": "#eceef0",
+                    "background": "#f7f9fb",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "tertiary-fixed": "#ffddba",
+                    "primary-fixed": "#d6e3ff",
+                    "tertiary": "#321b00",
+                    "inverse-surface": "#2d3133",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#007070",
+                    "on-error-container": "#93000a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#8cf3f3",
+                    "surface-container-highest": "#e0e3e5",
+                    "tertiary-container": "#4f2e00",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#002045",
+                    "surface-container-high": "#e6e8ea",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "on-primary-container": "#86a0cd",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface-shift {
+            background-color: #002045;
+        }
+        .no-border {
+            border: none !important;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+        .kanban-scrollbar::-webkit-scrollbar {
+            height: 8px;
+        }
+        .kanban-scrollbar::-webkit-scrollbar-track {
+            background: #f2f4f6;
+        }
+        .kanban-scrollbar::-webkit-scrollbar-thumb {
+            background: #adc7f7;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#002045] flex justify-between items-center px-6 h-16 w-full no-border shadow-none surface-shift">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white" data-icon="factory">factory</span>
+<h1 class="text-2xl font-bold text-white tracking-widest uppercase font-['Manrope']">ArtFlow</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-3 px-4 py-1 rounded-full bg-white/5">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center overflow-hidden">
+<img alt="João Silva" class="w-full h-full object-cover" data-alt="professional portrait of a male graphic designer with creative glasses in a modern studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0JA1B0fSDvUNd4VedCfcNu_AydzYsBRpPXl7u1Kxix3dfdz028Iezw7Ch1oG2JGlR77bEgyhjh2Wj3sEtf5GvvXB-FmvslrSf1czeUgBNoyGjhKwQEoYeUyxj78ci3SCSoO1IERPf5WDojJJw32aIz8ePwgWlZPH52nwAZGT9-vGTfum1lrifGW8vWmGAaS-x5zL6Mv1gHRS3pBHC1QFx8OBYEziVuXXazD6sxlChvDd8mXaA3R0xNBclG_O1uUEm46DKQmGyDY5M"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-white leading-tight">João Silva</span>
+<span class="text-[10px] text-slate-300 uppercase tracking-tighter">Designer</span>
+</div>
+</div>
+<button class="bg-secondary text-white px-5 py-2 rounded-lg font-bold text-sm tracking-tight transition-transform active:scale-95 duration-150 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                Nova Solicitação
+            </button>
+<button class="text-slate-300 hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="hidden md:inline text-xs font-medium">Sair</span>
+</button>
+</div>
+</header>
+<!-- NavigationDrawer -->
+<aside class="h-full w-64 fixed left-0 top-16 bg-slate-50 dark:bg-slate-900 flex flex-col py-4 gap-2 z-40 hidden md:flex border-r border-slate-100">
+<div class="px-6 py-4 mb-4 flex items-center gap-3">
+<div class="w-10 h-10 bg-slate-200 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#002045]" data-icon="account_circle">account_circle</span>
+</div>
+<div>
+<p class="font-bold text-[#002045] text-sm">Atelier Manager</p>
+<p class="text-xs text-slate-500">Shift A - Main Hall</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 pr-4">
+<a class="flex items-center gap-3 px-6 py-3 bg-[#006a6a]/10 text-[#006a6a] font-bold rounded-r-full transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="text-sm font-['Inter']">Production</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-200 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-sm font-['Inter']">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-200 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="text-sm font-['Inter']">Loom Status</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-200 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-sm font-['Inter']">Archive</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="pt-20 md:pl-64 min-h-screen bg-surface">
+<!-- Board Header -->
+<div class="px-8 py-6 flex justify-between items-end">
+<div>
+<h2 class="text-3xl font-extrabold font-headline text-primary tracking-tight">Industrial Kanban</h2>
+<p class="text-on-surface-variant text-sm mt-1">Monitorando 14 fluxos de produção ativa</p>
+</div>
+<div class="flex gap-2">
+<div class="bg-surface-container-high px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                    Filtrar
+                </div>
+<div class="bg-surface-container-high px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="sort">sort</span>
+                    Ordenar
+                </div>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<div class="px-8 pb-12">
+<div class="flex gap-6 overflow-x-auto pb-6 kanban-scrollbar">
+<!-- Column 1: Nova solicitação -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Nova solicitação</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">03</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-3 min-h-[600px]">
+<!-- Card -->
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary flex flex-col gap-3 hover:shadow-md transition-shadow">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">SKU #4402</span>
+<h4 class="text-sm font-bold text-on-surface">Vogue Brasil - Outono</h4>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                                12 Out 2023
+                            </div>
+</div>
+<!-- Card -->
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary flex flex-col gap-3">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">SKU #4405</span>
+<h4 class="text-sm font-bold text-on-surface">Riachuelo - Campanha Verão</h4>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                                Prioridade Alta
+                            </div>
+</div>
+</div>
+</div>
+<!-- Column 2: Designer pendente -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Designer pendente</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">01</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-3 min-h-[600px]">
+<!-- Card: Hover/Drag State -->
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-xl border-l-4 border-secondary-fixed flex flex-col gap-3 rotate-2 ring-2 ring-secondary scale-105 cursor-grabbing">
+<div class="flex justify-between items-start">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">SKU #4390</span>
+<span class="material-symbols-outlined text-secondary text-base" data-icon="drag_indicator">drag_indicator</span>
+</div>
+<h4 class="text-sm font-bold text-on-surface">Zara - Estampas Geométricas</h4>
+<div class="flex items-center gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="person_search">person_search</span>
+                                Aguardando Alocação
+                            </div>
+</div>
+</div>
+</div>
+<!-- Column 3: Designer em produção -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Designer em produção</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">02</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-3 min-h-[600px]">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary-fixed-dim flex flex-col gap-3">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">SKU #4388</span>
+<h4 class="text-sm font-bold text-on-surface">H&amp;M - Sustainable Denim</h4>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[65%]"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary ring-2 ring-white"></div>
+<div class="w-6 h-6 rounded-full bg-secondary-fixed ring-2 ring-white"></div>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant">65%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Aguardando aprovação -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Aguardando aprovação</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">00</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-4 min-h-[600px] border-2 border-dashed border-outline-variant items-center justify-center text-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant" data-icon="inbox_customize">inbox_customize</span>
+<div>
+<p class="text-sm font-bold text-on-surface-variant">Nenhum item pendente</p>
+<p class="text-xs text-outline">Novas aprovações aparecerão aqui</p>
+</div>
+</div>
+</div>
+<!-- Column 5: Aguardando finalização -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Aguardando finalização</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">01</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-3 min-h-[600px]">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-tertiary flex flex-col gap-3">
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-tighter">SKU #4299</span>
+<h4 class="text-sm font-bold text-on-surface">Lojas Renner - Coleção Inverno</h4>
+<div class="inline-flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded-full text-[10px] font-bold w-fit">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning">warning</span>
+                                URGENTE
+                            </div>
+</div>
+</div>
+</div>
+<!-- Column 6: Finalizado -->
+<div class="flex-shrink-0 w-80">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="text-xs font-black uppercase tracking-widest text-on-surface-variant">Finalizado</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] px-2 py-0.5 rounded-full font-bold">12</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-3 min-h-[600px]">
+<div class="bg-surface-container-lowest/60 p-4 rounded-lg shadow-sm border-l-4 border-outline-variant flex flex-col gap-3">
+<div class="flex justify-between">
+<span class="text-[10px] font-bold text-outline uppercase tracking-tighter">SKU #4102</span>
+<span class="material-symbols-outlined text-green-600 text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="text-sm font-bold text-on-surface-variant line-through">Reserva - Malhas Básicas</h4>
+<div class="text-[10px] font-medium text-outline">Entregue em 05 Out 2023</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest px-6 py-3 flex justify-around items-center border-t border-surface-container z-50">
+<button class="flex flex-col items-center gap-1 text-secondary">
+<span class="material-symbols-outlined" data-icon="grid_view" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="text-[10px] font-bold">Produção</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-bold">Estoque</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="text-[10px] font-bold">Novo</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold">Perfil</span>
+</button>
+</nav>
+</body></html>

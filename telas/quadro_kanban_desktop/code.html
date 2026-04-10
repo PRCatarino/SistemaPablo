@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#f2bc82",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffddba",
+                    "surface-tint": "#455f88",
+                    "primary-fixed-dim": "#adc7f7",
+                    "on-tertiary-fixed-variant": "#633f0f",
+                    "surface-container-high": "#e6e8ea",
+                    "tertiary": "#321b00",
+                    "surface-container-highest": "#e0e3e5",
+                    "secondary": "#006a6a",
+                    "surface-bright": "#f7f9fb",
+                    "on-tertiary-fixed": "#2b1700",
+                    "secondary-fixed-dim": "#6fd7d6",
+                    "inverse-primary": "#adc7f7",
+                    "on-tertiary-container": "#c6955e",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "error": "#ba1a1a",
+                    "primary": "#002045",
+                    "on-primary-fixed-variant": "#2d476f",
+                    "on-background": "#191c1e",
+                    "tertiary-container": "#4f2e00",
+                    "surface-container": "#eceef0",
+                    "on-secondary-fixed": "#002020",
+                    "primary-container": "#1a365d",
+                    "error-container": "#ffdad6",
+                    "surface": "#f7f9fb",
+                    "inverse-surface": "#2d3133",
+                    "secondary-container": "#8cf3f3",
+                    "on-surface-variant": "#43474e",
+                    "surface-dim": "#d8dadc",
+                    "on-surface": "#191c1e",
+                    "on-primary-fixed": "#001b3c",
+                    "secondary-fixed": "#8cf3f3",
+                    "outline-variant": "#c4c6cf",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "on-secondary-container": "#007070",
+                    "on-surface-variant": "#43474e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary": "#ffffff",
+                    "background": "#f7f9fb",
+                    "outline": "#74777f",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift-no-border {
+            background-color: #002045;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 z-50 flex justify-between items-center w-full px-6 py-3 shadow-lg tonal-shift-no-border bg-[#002045]">
+<div class="flex items-center gap-8">
+<div class="font-headline text-xl font-bold text-white tracking-widest uppercase">ArtFlow</div>
+<nav class="hidden md:flex gap-6">
+<a class="font-manrope text-white border-b-2 border-cyan-400 pb-1 label-sm uppercase tracking-wider font-semibold" href="#">Dashboard</a>
+<a class="font-manrope text-slate-300 hover:text-white transition-colors label-sm uppercase tracking-wider font-semibold" href="#">Analytics</a>
+<a class="font-manrope text-slate-300 hover:text-white transition-colors label-sm uppercase tracking-wider font-semibold" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-4 py-2 rounded-lg font-headline font-bold text-sm tracking-tight flex items-center gap-2 hover:opacity-90 transition-all border border-white/10">
+<span class="material-symbols-outlined text-[20px]" data-icon="add_circle">add_circle</span>
+                Create Batch
+            </button>
+<div class="h-8 w-[1px] bg-white/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-white text-xs font-bold leading-tight">Marcus Thorne</p>
+<p class="text-slate-400 text-[10px] uppercase tracking-tighter">Atelier Manager</p>
+</div>
+<img alt="User profile" class="w-9 h-9 rounded-full border border-white/20" data-alt="Close-up portrait of a professional man with a confident expression in a sharp studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA77_DX52IijPQPiM0ia2ruK2qXIB83ynpgRUEiAM0T6XvMtHr-OIiYDlwb_1sCvuBXoC85nejDIFa8IxZqPQOGEGYgcxv74eB6cPwERewtnAsEU9jBnF0ml-dZEqDjwZAkzUTKZejI8jfonC1JQFWnCzEQ0GEgsnPp4IFjUqDtqgOMuwnDbGbJUHGivmZMe45sN5ZSThDzD3-0BR3ynVWf_N2rX0gubafMlIRPJBy4kRwAHP7BCPaM7VVjuc5ndZklKbi9iYgMnhkk"/>
+</div>
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined p-2 hover:bg-white/10 rounded-full cursor-pointer transition-all" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined p-2 hover:bg-white/10 rounded-full cursor-pointer transition-all" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col pt-20 h-screen w-64 bg-slate-50 dark:bg-slate-900 tonal-layering surface-container-low">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="factory">factory</span>
+</div>
+<div>
+<h2 class="font-headline font-black text-lg text-[#002045] dark:text-white leading-tight">Industrial Atelier</h2>
+<p class="text-[10px] uppercase text-slate-500 font-semibold tracking-widest">Main Facility</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-3 py-3 text-[#006a6a] border-r-4 border-[#006a6a] bg-cyan-50/50 transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Production</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 hover:bg-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Loom Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 hover:bg-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 hover:bg-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Quality Control</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 hover:bg-slate-200 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold">Shipments</span>
+</a>
+</nav>
+<div class="p-6 border-t border-slate-200/50">
+<button class="w-full bg-secondary text-white py-3 rounded-xl font-headline font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
+                New Order
+            </button>
+</div>
+<div class="px-3 pb-6 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-600 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="analytics">analytics</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold text-[10px]">System Status</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-slate-600 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+<span class="font-inter label-sm uppercase tracking-wider font-semibold text-[10px]">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 pt-20 px-8 pb-8 min-h-screen">
+<!-- Dashboard Header -->
+<div class="flex justify-between items-end mb-8 mt-4">
+<div>
+<h1 class="font-headline headline-lg text-primary uppercase tracking-tight text-3xl font-extrabold mb-1">Production Pipeline</h1>
+<p class="text-on-surface-variant font-medium">Real-time status of current manufacturing requests.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<img alt="Team member" class="w-8 h-8 rounded-full border-2 border-surface" data-alt="Portrait of a female professional designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjru4Vmf2lA1fgw1gaP5P0441tgmOr5HO5Fc81elmTvFudRFMRxy5yshvQDuxcxvlgIhZ9rXOFPPIhgSIkM2OoG-qnvvV4nxZJnwB0mgZ2THozYoi1PZq_ReB-R4zkSSGswCpPwgi0hzJtix0wbpJF5Hng7BRrwOvYDb4b3JoAFJTZq9dSMS4DC6k-tU4gXb5p8fqFM0uzvm0ZpUSH7y5AMPNdzfch9C1jvFGAITUgM7JXS63-eYewZp2KKtlqUTM34z7aQmXQY6a6"/>
+<img alt="Team member" class="w-8 h-8 rounded-full border-2 border-surface" data-alt="Portrait of a male production manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0IWT7lKOfjDHqPl6-6Xjt1LQLIt3Z8RfwcwmkVvAq2qCS-3V6kWa0CTWHPXul--f4vRqP6cxwtIa3LJvc6OnL5IaNd6jgh8SoQr8Xa2oQTPV2nzLiUu8gaFU2vxle312Q_b9xwJ5yD2tJ0qV8Igfb2uQLiKYKlstFLmIud54zxmAlT_8aP0YW6zD9n_f8jDEX8owC5ukqzLDajRmYR9JTNTlzYo8HgpHojj-XFZrngc5UWiAFl8gZHvg-sqdThL36wqGPrdpMMwVf"/>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold text-on-surface-variant">+4</div>
+</div>
+<button class="bg-surface-container-highest px-4 py-2 rounded-lg font-headline font-bold text-xs uppercase tracking-widest text-primary flex items-center gap-2 hover:bg-white transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                    Filter
+                </button>
+</div>
+</div>
+<!-- Kanban Board -->
+<div class="grid grid-cols-6 gap-6 h-[calc(100vh-280px)] min-w-[1200px]">
+<!-- Column 1: Nova solicitação -->
+<div class="flex flex-col h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-primary text-xs uppercase tracking-wider flex items-center gap-2">
+                        Nova solicitação
+                        <span class="bg-primary-container text-white px-2 py-0.5 rounded text-[10px]">4</span>
+</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="more_horiz">more_horiz</span>
+</div>
+<div class="w-full h-[2px] bg-gradient-to-r from-secondary-fixed-dim to-secondary mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<!-- Card -->
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary relative group cursor-grab active:cursor-grabbing hover:translate-x-1 transition-transform">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40921</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">SILK &amp; CO.</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">24 OUT, 2023</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="bg-tertiary-container/10 text-on-tertiary-container text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">Urgent</span>
+<span class="material-symbols-outlined text-slate-300" data-icon="drag_indicator">drag_indicator</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary/40 relative group cursor-grab">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40925</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">GLOBAL TEXTILES</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">25 OUT, 2023</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="bg-secondary-container/10 text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">Standard</span>
+<span class="material-symbols-outlined text-slate-300" data-icon="drag_indicator">drag_indicator</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Designer pendente -->
+<div class="flex flex-col h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-primary text-xs uppercase tracking-wider flex items-center gap-2">
+                        Designer pendente
+                        <span class="bg-primary-container text-white px-2 py-0.5 rounded text-[10px]">2</span>
+</h3>
+</div>
+<div class="w-full h-[2px] bg-gradient-to-r from-slate-300 to-slate-400 mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-slate-400 cursor-grab">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40811</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">LUXE APPAREL</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">22 OUT, 2023</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-container flex items-center justify-center text-[8px] font-bold">?</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Designer em produção -->
+<div class="flex flex-col h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-primary text-xs uppercase tracking-wider flex items-center gap-2">
+                        Designer em produção
+                        <span class="bg-primary-container text-white px-2 py-0.5 rounded text-[10px]">3</span>
+</h3>
+</div>
+<div class="w-full h-[2px] bg-gradient-to-r from-secondary-fixed-dim to-secondary mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary cursor-grab bg-cyan-50/20 ring-1 ring-cyan-200">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40755</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">VELVET VOGUE</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">18 OUT, 2023</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden mb-3">
+<div class="bg-secondary h-full w-2/3"></div>
+</div>
+<div class="flex items-center gap-2">
+<img alt="Designer" class="w-6 h-6 rounded-full" data-alt="Portrait of a female textile designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8cU9oUU9GWVeqmU0JsnzlFwBgjgqxYpOr5IaBzOx48DOLV3Z9-nq74lXAmY3tXPLZI_E7B3UKnAVxsCBJROMNNJPtj_LGCn3_V6QrkZ1TC23okGgKfgOkSuBgbGXOopmAEzDrKmO0DUv3OMfeMnCCSlvJ2VkaIqu3Kf-FszX7XuSrXlEEh8bWt53pnEIth1nUxqlbo0hfmggpptRAd2nf5WM6hnTFVzD54dBSSQ_MRTfY9ejKhToT41x_Ou8PIlHsWwc6VBWOZaIJ"/>
+<span class="text-[10px] font-bold text-secondary">In Progress</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Aguardando aprovação -->
+<div class="flex flex-col h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-primary text-xs uppercase tracking-wider flex items-center gap-2">
+                        Aguardando aprovação
+                        <span class="bg-primary-container text-white px-2 py-0.5 rounded text-[10px]">5</span>
+</h3>
+</div>
+<div class="w-full h-[2px] bg-gradient-to-r from-tertiary-fixed-dim to-tertiary-container mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-tertiary-container/30 cursor-grab">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40520</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">URBAN WEAVE</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">15 OUT, 2023</span>
+</div>
+<div class="flex gap-1 mb-2">
+<div class="h-10 w-10 rounded bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="image">image</span>
+</div>
+<div class="h-10 w-10 rounded bg-slate-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400" data-icon="image">image</span>
+</div>
+</div>
+<span class="bg-error-container/20 text-error text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-widest">Pending Client</span>
+</div>
+</div>
+</div>
+<!-- Column 5: Aguardando finalização -->
+<div class="flex flex-col h-full bg-surface-container-low rounded-xl overflow-hidden shadow-sm">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-primary text-xs uppercase tracking-wider flex items-center gap-2">
+                        Aguardando finalização
+                        <span class="bg-primary-container text-white px-2 py-0.5 rounded text-[10px]">1</span>
+</h3>
+</div>
+<div class="w-full h-[2px] bg-gradient-to-r from-secondary-fixed-dim to-secondary mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<div class="bg-surface-container-lowest p-4 rounded-lg shadow-sm border-l-4 border-secondary/50 cursor-grab">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter mb-1">ID: #40229</p>
+<h4 class="font-headline font-extrabold text-primary text-sm mb-2">PRIMA COTTON</h4>
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="calendar_today">calendar_today</span>
+<span class="text-[11px] font-semibold">10 OUT, 2023</span>
+</div>
+<div class="flex items-center gap-2 text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified_user">verified_user</span>
+<span class="text-[10px] font-bold uppercase">Ready for Pack</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 6: Finalizado -->
+<div class="flex flex-col h-full bg-surface-container rounded-xl overflow-hidden opacity-80">
+<div class="p-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-on-surface-variant text-xs uppercase tracking-wider flex items-center gap-2">
+                        Finalizado
+                        <span class="bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded text-[10px]">12</span>
+</h3>
+</div>
+<div class="w-full h-[2px] bg-slate-300 mb-2"></div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 hide-scrollbar">
+<div class="bg-surface-container-lowest/50 p-4 rounded-lg border-l-4 border-slate-300 grayscale transition-all hover:grayscale-0">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">ID: #39982</p>
+<h4 class="font-headline font-extrabold text-slate-500 text-sm mb-2">DENIM DYNAMICS</h4>
+<div class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+<span class="text-[11px] font-semibold">Completed</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Component -->
+<div class="fixed bottom-10 right-10 flex flex-col items-end gap-3 pointer-events-none">
+<div class="bg-surface-container-lowest p-4 rounded-2xl shadow-2xl border border-outline-variant/10 pointer-events-auto backdrop-blur-xl bg-opacity-90 max-w-xs animate-in slide-in-from-bottom-5">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-secondary/10 text-secondary rounded-lg">
+<span class="material-symbols-outlined" data-icon="tips_and_updates">tips_and_updates</span>
+</div>
+<div>
+<h5 class="font-headline font-bold text-primary text-sm mb-1">Atelier Insight</h5>
+<p class="text-on-surface-variant text-xs leading-relaxed">System bottleneck detected in <span class="font-bold text-tertiary-container">Approval stage</span>. 3 requests are pending for more than 48h.</p>
+</div>
+</div>
+</div>
+<button class="bg-primary text-white p-4 rounded-full shadow-2xl pointer-events-auto hover:scale-110 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-[28px] group-hover:rotate-12 transition-transform" data-icon="bolt">bolt</span>
+</button>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ArtFlow Kanban - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e0e3e5",
+                        "primary-fixed-dim": "#adc7f7",
+                        "on-surface-variant": "#43474e",
+                        "tertiary-fixed-dim": "#f2bc82",
+                        "on-tertiary-fixed": "#2b1700",
+                        "secondary": "#006a6a",
+                        "on-secondary-fixed": "#002020",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-fixed-dim": "#6fd7d6",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-primary": "#adc7f7",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "primary-container": "#1a365d",
+                        "on-tertiary-fixed-variant": "#633f0f",
+                        "on-tertiary-container": "#c6955e",
+                        "surface-dim": "#d8dadc",
+                        "outline": "#74777f",
+                        "on-primary-fixed": "#001b3c",
+                        "surface-tint": "#455f88",
+                        "on-surface": "#191c1e",
+                        "secondary-fixed": "#8cf3f3",
+                        "surface-container": "#eceef0",
+                        "background": "#f7f9fb",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "tertiary-fixed": "#ffddba",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary": "#321b00",
+                        "inverse-surface": "#2d3133",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#007070",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#8cf3f3",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary-container": "#4f2e00",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#002045",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "on-background": "#191c1e",
+                        "on-primary-container": "#86a0cd",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-glass {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen items-center justify-center p-4">
+<!-- Hero Background (Asymmetric Tonal Architecture) -->
+<div class="fixed inset-0 z-0 overflow-hidden">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] bg-primary-container/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] bg-secondary/5 rounded-full blur-[100px]"></div>
+</div>
+<!-- Main Content Shell -->
+<main class="relative z-10 w-full max-w-md">
+<!-- Brand Identity Container -->
+<div class="mb-10 text-center">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-primary mb-6 shadow-xl">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="factory">factory</span>
+</div>
+<h1 class="font-headline text-4xl font-extrabold text-primary tracking-tight mb-2">ArtFlow</h1>
+<p class="text-on-surface-variant font-medium tracking-wide">Sistema de Gestão de Artes para Confecção</p>
+</div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_12px_32px_rgba(25,28,30,0.06)] p-8 overflow-hidden relative">
+<!-- Thread Indicator Component -->
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-secondary-fixed-dim to-secondary"></div>
+<form class="space-y-6" onsubmit="return false;">
+<!-- Error State (Subtle reference) -->
+<div class="bg-error-container/40 border-l-4 border-error px-4 py-3 rounded flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-lg" data-icon="error">error</span>
+<span class="text-on-error-container text-sm font-medium">Credenciais inválidas</span>
+</div>
+<!-- Input Group: Name -->
+<div class="space-y-1.5">
+<label class="block text-[0.6875rem] font-bold text-on-surface-variant uppercase tracking-[0.05em] ml-1">
+                        Nome de Usuário
+                    </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-lg" data-icon="person">person</span>
+</div>
+<input class="block w-full pl-10 pr-4 py-3 bg-surface-container-high border-none rounded-lg text-on-surface focus:ring-0 transition-all border-b-2 border-transparent focus:border-secondary placeholder:text-outline/50 text-sm" placeholder="Digite seu nome" type="text"/>
+</div>
+</div>
+<!-- Input Group: Cargo Selector -->
+<div class="space-y-1.5">
+<label class="block text-[0.6875rem] font-bold text-on-surface-variant uppercase tracking-[0.05em] ml-1">
+                        Cargo
+                    </label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-lg" data-icon="badge">badge</span>
+</div>
+<select class="block w-full pl-10 pr-10 py-3 bg-surface-container-high border-none rounded-lg text-on-surface focus:ring-0 appearance-none transition-all border-b-2 border-transparent focus:border-secondary text-sm">
+<option disabled="" selected="" value="">Selecione seu cargo</option>
+<option value="adm">Administrador</option>
+<option value="ate">Atendente</option>
+<option value="des">Designer</option>
+<option value="fin">Finalizador</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Action Section -->
+<div class="pt-2">
+<button class="w-full h-12 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-lg shadow-lg hover:shadow-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2" type="submit">
+                        Entrar
+                        <span class="material-symbols-outlined text-lg" data-icon="login">login</span>
+</button>
+</div>
+<!-- Secondary Actions -->
+<div class="text-center pt-4">
+<a class="text-xs font-medium text-secondary hover:text-on-secondary-container transition-colors" href="#">
+                        Esqueceu seu acesso? Contate o Administrador
+                    </a>
+</div>
+</form>
+</div>
+<!-- Aesthetic Detail: Fabric Texture Simulation -->
+<div class="mt-8 grid grid-cols-4 gap-4 opacity-20 grayscale">
+<div class="h-1 bg-secondary rounded-full"></div>
+<div class="h-1 bg-primary rounded-full"></div>
+<div class="h-1 bg-tertiary-fixed-dim rounded-full"></div>
+<div class="h-1 bg-secondary-fixed-dim rounded-full"></div>
+</div>
+<footer class="mt-12 text-center">
+<p class="text-[0.6875rem] text-outline uppercase tracking-widest font-bold">
+                Industrial Atelier © 2024
+            </p>
+</footer>
+</main>
+<!-- Decorative Image (Industrial Aesthetic) -->
+<div class="hidden lg:block fixed bottom-8 right-8 w-64 h-64 opacity-10">
+<img alt="Industrial Loom Macro" class="w-full h-full object-contain grayscale" data-alt="close-up of a minimalist industrial loom macro with delicate teal threads and cold metallic machinery textures in soft professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAwwObbWkWFd_mHEXNpKPrK1H-KeU-h5x7B1jto-Q3L6JOCfswQaYusTcCwsYEqDnl-IPWniKu2thQi5QBS4PBsaoom5gvdoLQi9UHpCWypnCiL-hNrDiQ0YRETyQ4UvU0pg-TADSLQFpUFC_A7qAp1akyvhoxs9g6qq6yB5FWgRgytA08GsRa7furm5-GWu64EejVCBd-UOKtlvnkYoSBK_P2SrLkXz_Rq6EJhLHVThgHftKNp6VIPEv3_-FiMJkzBmC_dETb8Tjj"/>
+</div>
+</body></html>

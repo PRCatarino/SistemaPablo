@@ -11,6 +11,7 @@ import {
   canDragCard,
   canMoveCard,
 } from "@/lib/permissions";
+import { MaterialIcon } from "@/components/MaterialIcon";
 import { CardDetailDialog } from "./CardDetailDialog";
 
 function ChevronLeft({ className }: { className?: string }) {
@@ -53,10 +54,19 @@ function ChevronRight({ className }: { className?: string }) {
 
 function formatShortDate(iso: string) {
   try {
-    return new Date(iso).toLocaleDateString("pt-BR");
+    return new Date(iso).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
   } catch {
     return "—";
   }
+}
+
+function shortCardId(id: string) {
+  const tail = id.replace(/\W/g, "").slice(-5).toUpperCase();
+  return tail || id.slice(0, 5).toUpperCase();
 }
 
 type Props = { card: Card };
@@ -66,8 +76,9 @@ export function KanbanCard({ card }: Props) {
   const [detailOpen, setDetailOpen] = useState(false);
 
   const role = currentUser?.role;
-  const dragAllowed =
-    !!role && canDragCard(role, card.columnId);
+  const dragAllowed = !!role && canDragCard(role, card.columnId);
+  const isFinal = card.columnId === "finalizado";
+  const inProduction = card.columnId === "designer_em_producao";
 
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -91,49 +102,69 @@ export function KanbanCard({ card }: Props) {
     nextCol !== null &&
     canMoveCard(role, card.columnId, nextCol);
 
+  const threadBorder = inProduction
+    ? "border-l-secondary"
+    : isFinal
+      ? "border-l-slate-300"
+      : "border-l-secondary/80";
+
   return (
     <>
       <div
         ref={setNodeRef}
         style={style}
         className={[
-          "rounded-lg border border-slate-200/80 bg-white shadow-sm",
-          "min-w-[200px] max-w-[240px] select-none",
-          dragAllowed ? "cursor-grab active:cursor-grabbing" : "",
+          "relative max-w-[240px] min-w-[200px] select-none rounded-lg bg-surface-container-lowest p-4 shadow-sm",
+          "border-l-4",
+          threadBorder,
+          dragAllowed ? "cursor-grab hover:translate-x-0.5 active:cursor-grabbing" : "",
+          inProduction ? "bg-cyan-50/20 ring-1 ring-cyan-200/80" : "",
+          isFinal ? "grayscale transition-all hover:grayscale-0" : "",
         ].join(" ")}
       >
-        <div className="flex items-stretch gap-0 border-b border-slate-100">
+        <div className="flex items-stretch gap-0">
           {canPrev ? (
             <button
               type="button"
               aria-label="Mover para etapa anterior"
               onClick={() => prevCol && void moveCardToColumn(card.id, prevCol)}
-              className="flex shrink-0 items-center justify-center px-2 py-2 text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+              className="flex shrink-0 items-center justify-center px-1 py-1 text-on-surface-variant hover:text-primary"
             >
               <ChevronLeft />
             </button>
           ) : (
-            <span className="w-9 shrink-0" aria-hidden />
+            <span className="w-6 shrink-0" aria-hidden />
           )}
           <div
             {...(dragAllowed ? listeners : {})}
             {...(dragAllowed ? attributes : {})}
             className={[
-              "flex-1 min-w-0 py-2 pr-1 pl-1",
-              dragAllowed ? "touch-none" : "",
+              "min-w-0 flex-1 touch-none",
+              dragAllowed ? "" : "",
             ].join(" ")}
           >
             <button
               type="button"
               onClick={() => setDetailOpen(true)}
-              className="w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded"
+              className="w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-1 rounded-sm"
             >
-              <p className="text-sm font-medium text-slate-900 leading-snug">
+              <p className="mb-1 text-[10px] font-bold tracking-tighter text-on-surface-variant uppercase">
+                ID: #{shortCardId(card.id)}
+              </p>
+              <h4
+                className={[
+                  "mb-2 font-headline text-sm font-extrabold leading-snug",
+                  isFinal ? "text-slate-500" : "text-primary",
+                ].join(" ")}
+              >
                 {card.clientName}
-              </p>
-              <p className="mt-0.5 text-xs text-slate-500">
-                {formatShortDate(card.requestDate)}
-              </p>
+              </h4>
+              <div className="mb-3 flex items-center gap-2 text-on-surface-variant">
+                <MaterialIcon name="calendar_today" className="text-[16px]" />
+                <span className="text-[11px] font-semibold">
+                  {formatShortDate(card.requestDate)}
+                </span>
+              </div>
             </button>
           </div>
           {canNext ? (
@@ -141,24 +172,35 @@ export function KanbanCard({ card }: Props) {
               type="button"
               aria-label="Mover para próxima etapa"
               onClick={() => nextCol && void moveCardToColumn(card.id, nextCol)}
-              className="flex shrink-0 items-center justify-center px-2 py-2 text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+              className="flex shrink-0 items-center justify-center px-1 py-1 text-on-surface-variant hover:text-primary"
             >
               <ChevronRight />
             </button>
           ) : (
-            <span className="w-9 shrink-0" aria-hidden />
+            <span className="w-6 shrink-0" aria-hidden />
           )}
         </div>
-        <button
-          type="button"
-          onClick={() => setDetailOpen(true)}
-          className="w-full border-t border-slate-100 px-2 py-1.5 text-left text-[10px] uppercase tracking-wide text-slate-500 hover:bg-slate-50"
-        >
-          {COLUMN_LABELS[card.columnId]} ·{" "}
-          <span className="font-medium text-sky-700 normal-case">
-            Abrir painel
+
+        <div className="mt-1 flex items-center justify-between border-t border-outline-variant/10 pt-2">
+          <span className="text-[10px] font-medium tracking-wide text-on-surface-variant uppercase">
+            {COLUMN_LABELS[card.columnId]}
           </span>
-        </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setDetailOpen(true)}
+              className="text-[10px] font-bold text-secondary uppercase tracking-tight hover:underline"
+            >
+              Abrir
+            </button>
+            {dragAllowed ? (
+              <MaterialIcon
+                name="drag_indicator"
+                className="text-slate-300 text-[18px]"
+              />
+            ) : null}
+          </div>
+        </div>
       </div>
       <CardDetailDialog
         card={card}
