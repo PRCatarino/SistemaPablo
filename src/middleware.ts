@@ -1,24 +1,43 @@
-import NextAuth from "next-auth";
-import { authConfig } from "@/auth.config";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-const { auth } = NextAuth(authConfig);
+/**
+ * Não usar `NextAuth(authConfig)` aqui: com AUTH_URL=http://localhost o next-auth
+ * faz `reqWithEnvURL` e troca a origem do pedido por localhost, e redirects
+ * (`new URL("/login", req.url)`) passam a apontar para localhost na Vercel.
+ * getToken só lê o cookie + AUTH_SECRET e usa sempre o host real do pedido.
+ */
+const publicAuthPaths = new Set(["/login"]);
 
-const publicAuthPaths = ["/login"];
+export async function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname;
+  const isPublic = publicAuthPaths.has(path);
+  const isHttps = request.nextUrl.protocol === "https:";
 
-export default auth((req) => {
-  const path = req.nextUrl.pathname;
-  const isPublicAuth = publicAuthPaths.includes(path);
-  if (!req.auth && !isPublicAuth) {
-    const url = new URL("/login", req.url);
-    url.searchParams.set("callbackUrl", path);
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: isHttps,
+  });
+
+  if (!token && !isPublic) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = "";
+    url.searchParams.set("callbackUrl", path === "/" ? "/" : path);
     return NextResponse.redirect(url);
   }
-  if (req.auth && isPublicAuth) {
-    return NextResponse.redirect(new URL("/", req.url));
+
+  if (token && isPublic) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/";
+    url.search = "";
+    return NextResponse.redirect(url);
   }
+
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: [
