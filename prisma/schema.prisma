@@ -5,10 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  /** Runtime (Vercel/serverless): pooler 6543. Migrations usam directUrl (:5432). */
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum KanbanColumnId {
