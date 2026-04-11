@@ -1,9 +1,14 @@
 import { mkdir, writeFile } from "fs/promises";
+import os from "os";
 import path from "path";
 import { randomUUID } from "crypto";
 
+/** Na Vercel o FS do projeto é só leitura; só /tmp é gravável (ephemeral entre invocações). */
 export const UPLOAD_ROOT =
-  process.env.UPLOAD_DIR ?? path.join(process.cwd(), "uploads");
+  process.env.UPLOAD_DIR ??
+  (process.env.VERCEL === "1"
+    ? path.join(os.tmpdir(), "artflow-uploads")
+    : path.join(process.cwd(), "uploads"));
 
 const ALLOWED_EXT = new Set([
   ".jpg",

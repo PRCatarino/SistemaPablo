@@ -178,14 +178,19 @@ function emptyToNull(s: string | undefined): string | null {
   return s.trim();
 }
 
+const vercelDbHint =
+  process.env.VERCEL === "1"
+    ? " Na Vercel → Settings → Environment Variables: DATABASE_URL = Supabase → Connection pooling → Transaction (porta 6543), com ?pgbouncer=true&sslmode=require (e senha URL-encoded se tiver @ ou #)."
+    : "";
+
 function prismaPostErrorMessage(err: unknown): string {
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case "P1001":
-        return "Não foi possível conectar ao banco. Confira DATABASE_URL e se o PostgreSQL está acessível.";
+        return `Não foi possível conectar ao banco. Confira DATABASE_URL (pooler Supabase na Vercel, não localhost).${vercelDbHint}`;
       case "P2021":
       case "P2010":
-        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy).";
+        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy) contra o Postgres do Supabase.";
       case "P2002":
         return "Conflito de registro único no banco.";
       default:
@@ -193,7 +198,7 @@ function prismaPostErrorMessage(err: unknown): string {
     }
   }
   if (err instanceof Prisma.PrismaClientInitializationError) {
-    return "Falha ao conectar ao banco. Verifique DATABASE_URL no .env.";
+    return `Falha ao iniciar ligação ao banco. Confira DATABASE_URL.${vercelDbHint}`;
   }
   if (process.env.NODE_ENV === "development" && err instanceof Error) {
     return err.message;
