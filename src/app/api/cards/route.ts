@@ -1,10 +1,9 @@
 import { auth } from "@/auth";
-import { isKanbanDemo } from "@/lib/kanban-demo";
+import { saveCardImages } from "@/lib/card-uploads";
 import { prisma } from "@/lib/prisma";
 import { dbCardToDTO } from "@/lib/mappers";
 import { canCreateCard } from "@/lib/permissions";
 import { sessionToKanbanUser } from "@/lib/session-user";
-import { saveCardImages } from "@/lib/uploads";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import { NextResponse } from "next/server";
@@ -32,10 +31,6 @@ export async function GET() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (isKanbanDemo()) {
-    return NextResponse.json({ cards: [] });
-  }
-
   const rows = await prisma.shirtArtCard.findMany({
     orderBy: { updatedAt: "desc" },
   });
@@ -44,16 +39,6 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  if (isKanbanDemo()) {
-    return NextResponse.json(
-      {
-        error:
-          "Modo demonstração (armazenamento local). Crie solicitações pelo formulário no aplicativo.",
-      },
-      { status: 503 }
-    );
-  }
-
   const session = await auth();
   const me = sessionToKanbanUser(session);
   if (!me || !canCreateCard(me.role)) {

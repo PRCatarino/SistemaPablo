@@ -14,7 +14,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useKanban } from "@/context/KanbanContext";
 import type { Card, ColumnId } from "@/lib/kanban-types";
 import { COLUMN_LABELS, COLUMN_ORDER, ROLE_LABELS } from "@/lib/kanban-types";
-import { isKanbanDemo } from "@/lib/kanban-demo";
 import { canCreateCard, canMoveCard } from "@/lib/permissions";
 import { MaterialIcon } from "@/components/MaterialIcon";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -419,14 +418,6 @@ export function KanbanBoard() {
         <SidebarNav activeView={shellView} onView={setShellView} />
 
         <main className="ml-0 min-h-screen pt-20 pb-8 md:ml-64 md:px-8 md:pt-20">
-          {isKanbanDemo() ? (
-            <div className="mb-3 border-b border-outline-variant/20 bg-tertiary-fixed/30 px-3 py-2 text-center font-label text-[10px] font-bold tracking-wider text-tertiary uppercase md:mx-0 md:rounded-lg md:border md:px-4">
-              Modo demonstração — quadro salvo neste navegador (localStorage).
-              Sem banco de dados. Remova NEXT_PUBLIC_KANBAN_DEMO para produção com
-              PostgreSQL.
-            </div>
-          ) : null}
-
           {shellView === "production" ? (
             <>
               <div className="mb-6 mt-4 flex flex-col gap-4 px-3 sm:flex-row sm:items-end sm:justify-between md:px-0">
@@ -585,10 +576,8 @@ export function KanbanBoard() {
             {ROLE_LABELS[currentUser.role]}).
           </li>
           <li>
-            <strong className="text-on-surface">Dados:</strong> o quadro usa{" "}
-            {isKanbanDemo()
-              ? "armazenamento local no navegador (modo demonstração)."
-              : "PostgreSQL na API."}
+            <strong className="text-on-surface">Dados:</strong> o quadro usa
+            PostgreSQL (Supabase) via API.
           </li>
           <li>
             Para trocar de usuário, use <strong>Sair</strong> no topo.
