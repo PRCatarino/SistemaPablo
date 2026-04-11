@@ -127,7 +127,9 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           error:
-            "Falha ao salvar anexos. Verifique permissões da pasta de uploads ou o espaço em disco.",
+            uploadErr instanceof Error
+              ? uploadErr.message
+              : "Falha ao salvar anexos no Supabase Storage. Confira NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY.",
         },
         { status: 500 }
       );
