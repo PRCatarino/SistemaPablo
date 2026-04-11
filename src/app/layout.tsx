@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/auth";
 import { AppProviders } from "@/components/AppProviders";
 import "./globals.css";
@@ -58,6 +59,7 @@ export default async function RootLayout({
         className={`${manrope.variable} ${inter.variable} min-h-screen font-body`}
       >
         <AppProviders session={session}>{children}</AppProviders>
+        <SpeedInsights />
       </body>
     </html>
   );
