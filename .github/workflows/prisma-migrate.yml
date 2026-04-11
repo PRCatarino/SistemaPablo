@@ -1,0 +1,29 @@
+# Roda migrations no GitHub (rede costuma alcançar db.*.supabase.co:5432).
+# Secrets no repositório: Settings → Secrets → Actions
+#   DIRECT_URL — URI direta :5432 (senha URL-encoded), copiar do Supabase "Direct connection"
+#   DATABASE_URL — pode ser a mesma DIRECT_URL ou o pooler 6543 (Prisma carrega as duas)
+#
+# Disparo: Actions → "Prisma migrate deploy" → Run workflow
+name: Prisma migrate deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+        run: npx prisma migrate deploy
