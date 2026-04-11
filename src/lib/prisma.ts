@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { resolveDatabaseUrl } from "@/lib/database-url";
 
 /**
  * Um único PrismaClient por instância serverless (Vercel). Sem isto, cada import
@@ -8,6 +9,8 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
+const databaseUrl = resolveDatabaseUrl();
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
@@ -15,6 +18,9 @@ export const prisma =
       process.env.NODE_ENV === "development"
         ? ["error", "warn"]
         : ["error"],
+    ...(databaseUrl
+      ? { datasources: { db: { url: databaseUrl } } }
+      : {}),
   });
 
 globalForPrisma.prisma = prisma;
