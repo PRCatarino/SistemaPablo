@@ -37,6 +37,8 @@ export type KanbanContextValue = {
     patch: Record<string, unknown>
   ) => Promise<{ error?: string }>;
   refetchKanban: () => Promise<unknown>;
+  /** Falha ao carregar GET /api/cards (ex.: banco ou migrations). */
+  kanbanLoadError: string | null;
   newCardOpen: boolean;
   setNewCardOpen: (v: boolean) => void;
 };
@@ -45,8 +47,23 @@ const KanbanContext = createContext<KanbanContextValue | null>(null);
 
 async function fetchBootstrap(): Promise<Bootstrap> {
   const r = await fetch("/api/cards");
-  if (!r.ok) throw new Error("Falha ao carregar quadro");
-  return r.json();
+  let body: unknown = {};
+  try {
+    body = await r.json();
+  } catch {
+    /* resposta não-JSON (ex.: HTML de erro) */
+  }
+  const data = body as { cards?: Card[]; error?: string };
+  if (!r.ok) {
+    throw new Error(
+      data.error?.trim() ||
+        `Não foi possível carregar o quadro (HTTP ${r.status}).`,
+    );
+  }
+  if (!Array.isArray(data.cards)) {
+    throw new Error("Resposta inválida do servidor ao carregar o quadro.");
+  }
+  return { cards: data.cards };
 }
 
 export function KanbanProvider({ children }: { children: React.ReactNode }) {
@@ -54,11 +71,17 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   const currentUser = sessionToKanbanUser(session);
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, error: queryError, isError } = useQuery({
     queryKey: ["kanban", "cards"],
     queryFn: fetchBootstrap,
     enabled: status === "authenticated",
   });
+
+  const kanbanLoadError = isError
+    ? queryError instanceof Error
+      ? queryError.message
+      : "Falha ao carregar o quadro."
+    : null;
 
   const [newCardOpen, setNewCardOpen] = useState(false);
   const [returnReasonPrompt, setReturnReasonPrompt] =
@@ -190,6 +213,7 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       confirmDesignerReturnPrompt,
       patchCardAdmin,
       refetchKanban: refetch,
+      kanbanLoadError,
       newCardOpen,
       setNewCardOpen,
     }),
@@ -205,6 +229,7 @@ export function KanbanProvider({ children }: { children: React.ReactNode }) {
       confirmDesignerReturnPrompt,
       patchCardAdmin,
       refetch,
+      kanbanLoadError,
       newCardOpen,
     ]
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useKanban } from "@/context/KanbanContext";
 import { canCreateCard } from "@/lib/permissions";
 import { MaterialIcon } from "@/components/MaterialIcon";
@@ -23,6 +23,10 @@ export function NewSolicitationModal() {
   const queryClient = useQueryClient();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    if (newCardOpen) setError(null);
+  }, [newCardOpen]);
 
   if (!currentUser || !canCreateCard(currentUser.role)) return null;
 

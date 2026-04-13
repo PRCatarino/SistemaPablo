@@ -31,11 +31,18 @@ export async function GET() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const rows = await prisma.shirtArtCard.findMany({
-    orderBy: { updatedAt: "desc" },
-  });
-
-  return NextResponse.json({ cards: rows.map(dbCardToDTO) });
+  try {
+    const rows = await prisma.shirtArtCard.findMany({
+      orderBy: { updatedAt: "desc" },
+    });
+    return NextResponse.json({ cards: rows.map(dbCardToDTO) });
+  } catch (err) {
+    console.error("[GET /api/cards]", err);
+    return NextResponse.json(
+      { error: prismaClientErrorMessage(err, "carregar o quadro") },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(req: Request) {
@@ -147,7 +154,7 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[POST /api/cards]", err);
     return NextResponse.json(
-      { error: prismaPostErrorMessage(err) },
+      { error: prismaClientErrorMessage(err, "criar solicitação") },
       { status: 500 }
     );
   }
@@ -170,7 +177,10 @@ const vercelDbHint =
     ? " Na Vercel → Settings → Environment Variables: defina DATABASE_URL com a URI do Postgres (pooler, se usar) e senha URL-encoded se tiver @ ou #."
     : "";
 
-function prismaPostErrorMessage(err: unknown): string {
+function prismaClientErrorMessage(
+  err: unknown,
+  action: "carregar o quadro" | "criar solicitação",
+): string {
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case "P1001":
@@ -190,5 +200,5 @@ function prismaPostErrorMessage(err: unknown): string {
   if (process.env.NODE_ENV === "development" && err instanceof Error) {
     return err.message;
   }
-  return "Erro interno ao criar solicitação.";
+  return `Erro interno ao ${action}.`;
 }

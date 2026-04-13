@@ -165,6 +165,7 @@ export function KanbanBoard() {
     moveCardToColumn,
     setNewCardOpen,
     refetchKanban,
+    kanbanLoadError,
     returnReasonPrompt,
     cancelDesignerReturnPrompt,
     confirmDesignerReturnPrompt,
@@ -418,6 +419,26 @@ export function KanbanBoard() {
         <SidebarNav activeView={shellView} onView={setShellView} />
 
         <main className="ml-0 min-h-screen pt-20 pb-8 md:ml-64 md:px-8 md:pt-20">
+          {kanbanLoadError ? (
+            <div
+              className="mb-4 flex flex-col gap-3 rounded-xl border border-error/25 bg-error-container/25 px-4 py-3 text-on-error-container md:mx-0 mx-3"
+              role="alert"
+            >
+              <p className="font-body text-sm font-semibold">
+                Não foi possível carregar os dados do quadro. Isso costuma ser o
+                pedido <code className="rounded bg-black/10 px-1">GET /api/cards</code>{" "}
+                ao entrar (não o envio do formulário).
+              </p>
+              <p className="font-body text-sm">{kanbanLoadError}</p>
+              <button
+                type="button"
+                onClick={() => void refetchKanban()}
+                className="self-start rounded-lg bg-primary px-4 py-2 font-headline text-xs font-bold text-on-primary uppercase"
+              >
+                Tentar de novo
+              </button>
+            </div>
+          ) : null}
           {shellView === "production" ? (
             <>
               <div className="mb-6 mt-4 flex flex-col gap-4 px-3 sm:flex-row sm:items-end sm:justify-between md:px-0">
