@@ -1,7 +1,7 @@
 import os from "os";
 import path from "path";
 
-/** Só para servir anexos antigos gravados em disco (`/api/uploads/...`). */
+/** Raiz dos anexos dos cards no disco; servidos em `/api/uploads/...` (autenticado). */
 export const UPLOAD_ROOT =
   process.env.UPLOAD_DIR ??
   (process.env.VERCEL === "1"

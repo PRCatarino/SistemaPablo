@@ -3,7 +3,7 @@ import { resolveDatabaseUrl } from "@/lib/database-url";
 
 /**
  * Um único PrismaClient por instância serverless (Vercel). Sem isto, cada import
- * abre novas ligações ao Postgres e o pool do Supabase esgota → P1001 / InitializationError.
+ * abre novas ligações ao Postgres e o pool esgota → P1001 / InitializationError.
  */
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -32,6 +32,6 @@ if (
     process.env.DATABASE_URL.includes("localhost"))
 ) {
   console.error(
-    "[prisma] DATABASE_URL aponta para localhost na Vercel — defina a connection string do Supabase nas Environment Variables.",
+    "[prisma] DATABASE_URL aponta para localhost na Vercel — defina a connection string do Postgres nas Environment Variables.",
   );
 }

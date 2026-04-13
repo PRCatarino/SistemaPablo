@@ -1,5 +1,5 @@
 /**
- * Monta uma URI Postgres válida para o Prisma na Vercel + Supabase.
+ * Ajusta DATABASE_URL para o Prisma (senhas especiais, pooler, limite em serverless).
  *
  * Senhas com ?, +, ^, {, }, #, @, etc. na DATABASE_URL quebram o parser de URL
  * (o ? vira início da query string). Se existir POSTGRES_PASSWORD, substituímos
@@ -37,10 +37,8 @@ export function resolveDatabaseUrl(): string | undefined {
     }
   }
 
-  const isSupabase =
-    url.includes("supabase.com") || url.includes("supabase.co");
   const isPooler =
-    url.includes("pooler.supabase.com") || /:6543(\/|\?|#|$)/.test(url);
+    /pooler\./i.test(url) || /:6543(\/|\?|#|$)/.test(url);
 
   const hasParam = (name: string) =>
     new RegExp(`[?&]${name}=`, "i").test(url);
@@ -49,10 +47,6 @@ export function resolveDatabaseUrl(): string | undefined {
     if (hasParam(key)) return;
     url += (url.includes("?") ? "&" : "?") + `${key}=${value}`;
   };
-
-  if (isSupabase && !hasParam("sslmode")) {
-    append("sslmode", "require");
-  }
 
   if (isPooler && !hasParam("pgbouncer")) {
     append("pgbouncer", "true");

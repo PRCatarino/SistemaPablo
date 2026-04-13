@@ -577,7 +577,7 @@ export function KanbanBoard() {
           </li>
           <li>
             <strong className="text-on-surface">Dados:</strong> o quadro usa
-            PostgreSQL (Supabase) via API.
+            PostgreSQL na VPS via API.
           </li>
           <li>
             Para trocar de usuário, use <strong>Sair</strong> no topo.

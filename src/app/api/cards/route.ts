@@ -129,7 +129,7 @@ export async function POST(req: Request) {
           error:
             uploadErr instanceof Error
               ? uploadErr.message
-              : "Falha ao salvar anexos no Supabase Storage. Confira NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY.",
+              : "Falha ao salvar anexos em disco. Confira UPLOAD_DIR e permissões da pasta.",
         },
         { status: 500 }
       );
@@ -167,17 +167,17 @@ function emptyToNull(s: string | undefined): string | null {
 
 const vercelDbHint =
   process.env.VERCEL === "1"
-    ? " Na Vercel → Settings → Environment Variables: DATABASE_URL = Supabase → Connection pooling → Transaction (porta 6543), com ?pgbouncer=true&sslmode=require (e senha URL-encoded se tiver @ ou #)."
+    ? " Na Vercel → Settings → Environment Variables: defina DATABASE_URL com a URI do Postgres (pooler, se usar) e senha URL-encoded se tiver @ ou #."
     : "";
 
 function prismaPostErrorMessage(err: unknown): string {
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case "P1001":
-        return `Não foi possível conectar ao banco. Confira DATABASE_URL (pooler Supabase na Vercel, não localhost).${vercelDbHint}`;
+        return `Não foi possível conectar ao banco. Confira DATABASE_URL (host, porta, firewall e SSL).${vercelDbHint}`;
       case "P2021":
       case "P2010":
-        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy) contra o Postgres do Supabase.";
+        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy) contra este Postgres.";
       case "P2002":
         return "Conflito de registro único no banco.";
       default:

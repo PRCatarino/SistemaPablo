@@ -1,6 +1,5 @@
-# Roda migrations no GitHub (rede costuma alcançar db.*.supabase.co:5432).
-# Secret: DATABASE_URL = URI direta :5432 (senha URL-encoded), ou pooler se funcionar.
-# Alternativa sem CLI: supabase/apply-migrations-once.sql no SQL Editor.
+# Roda migrations no GitHub contra o Postgres configurado no secret DATABASE_URL.
+# URI com senha URL-encoded; use host acessível a partir dos runners (ex.: IP público da VPS).
 #
 # Disparo: Actions → "Prisma migrate deploy" → Run workflow
 name: Prisma migrate deploy

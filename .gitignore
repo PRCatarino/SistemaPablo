@@ -26,7 +26,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env — nunca commitar segredos (Vercel / Supabase / Auth)
+# env — nunca commitar segredos
 .env
 .env.*
 !.env.example
