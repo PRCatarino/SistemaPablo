@@ -25,13 +25,15 @@ export const prisma =
 
 globalForPrisma.prisma = prisma;
 
+const vercelDbTarget =
+  process.env.DATABASE_URL_TEST?.trim() || process.env.DATABASE_URL?.trim();
 if (
   process.env.VERCEL === "1" &&
-  process.env.DATABASE_URL &&
-  (process.env.DATABASE_URL.includes("127.0.0.1") ||
-    process.env.DATABASE_URL.includes("localhost"))
+  vercelDbTarget &&
+  (vercelDbTarget.includes("127.0.0.1") ||
+    vercelDbTarget.includes("localhost"))
 ) {
   console.error(
-    "[prisma] DATABASE_URL aponta para localhost na Vercel — defina a connection string do Postgres nas Environment Variables.",
+    "[prisma] DATABASE_URL (ou DATABASE_URL_TEST) aponta para localhost na Vercel — defina a connection string do Postgres nas Environment Variables.",
   );
 }
