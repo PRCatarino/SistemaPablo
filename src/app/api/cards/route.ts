@@ -187,7 +187,7 @@ function prismaClientErrorMessage(
         return `Não foi possível conectar ao banco. Confira DATABASE_URL (host, porta, firewall e SSL).${vercelDbHint}`;
       case "P2021":
       case "P2010":
-        return "Esquema do banco desatualizado. Rode as migrations (ex.: npm run db:deploy) contra este Postgres.";
+        return "Esquema desatualizado (tabelas ou colunas em falta). Corre `npx prisma migrate deploy` contra o MESMO Postgres definido em DATABASE_URL desta app (na Vercel: Settings → Environment Variables).";
       case "P2002":
         return "Conflito de registro único no banco.";
       default:
