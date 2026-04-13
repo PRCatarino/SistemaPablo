@@ -29,9 +29,7 @@ async function saveToDisk(
   return urls;
 }
 
-/**
- * Grava anexos em disco (`UPLOAD_DIR` ou pasta `uploads/` no projeto — ver `src/lib/uploads.ts`).
- */
+/** Grava anexos em disco (pasta `uploads/` no projeto; na Vercel, diretório temporário). */
 export async function saveCardImages(
   cardId: string,
   subfolder: "cliente" | "referencias",

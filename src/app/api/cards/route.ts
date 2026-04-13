@@ -136,7 +136,7 @@ export async function POST(req: Request) {
           error:
             uploadErr instanceof Error
               ? uploadErr.message
-              : "Falha ao salvar anexos em disco. Confira UPLOAD_DIR e permissões da pasta.",
+              : "Falha ao salvar anexos em disco (pasta uploads/ ou permissões).",
         },
         { status: 500 }
       );

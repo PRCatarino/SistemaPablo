@@ -1,12 +1,11 @@
 import os from "os";
 import path from "path";
 
-/** Raiz dos anexos dos cards no disco; servidos em `/api/uploads/...` (autenticado). */
+/** Raiz dos anexos no disco; servidos em `/api/uploads/...` (autenticado). Sem env: `uploads/` local, temp na Vercel. */
 export const UPLOAD_ROOT =
-  process.env.UPLOAD_DIR ??
-  (process.env.VERCEL === "1"
+  process.env.VERCEL === "1"
     ? path.join(os.tmpdir(), "artflow-uploads")
-    : path.join(process.cwd(), "uploads"));
+    : path.join(process.cwd(), "uploads");
 
 const ALLOWED_EXT = new Set([
   ".jpg",
