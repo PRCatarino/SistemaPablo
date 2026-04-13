@@ -125,21 +125,16 @@ export async function POST(req: Request) {
 
     let urlsCliente: string[] = [];
     let urlsRef: string[] = [];
+    let attachmentWarning: string | undefined;
     try {
       urlsCliente = await saveCardImages(card.id, "cliente", filesCliente);
       urlsRef = await saveCardImages(card.id, "referencias", filesRef);
     } catch (uploadErr) {
-      await prisma.shirtArtCard.delete({ where: { id: card.id } }).catch(() => {});
       console.error("[POST /api/cards] upload", uploadErr);
-      return NextResponse.json(
-        {
-          error:
-            uploadErr instanceof Error
-              ? uploadErr.message
-              : "Falha ao salvar anexos em disco (pasta uploads/ ou permissões).",
-        },
-        { status: 500 }
-      );
+      attachmentWarning =
+        uploadErr instanceof Error
+          ? uploadErr.message
+          : "Não foi possível gravar os ficheiros no disco (permissões, pasta ou espaço).";
     }
 
     const updated = await prisma.shirtArtCard.update({
@@ -150,7 +145,13 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({ card: dbCardToDTO(updated) }, { status: 201 });
+    return NextResponse.json(
+      {
+        card: dbCardToDTO(updated),
+        ...(attachmentWarning ? { attachmentWarning } : {}),
+      },
+      { status: 201 },
+    );
   } catch (err) {
     console.error("[POST /api/cards]", err);
     return NextResponse.json(

@@ -41,11 +41,20 @@ export function NewSolicitationModal() {
         method: "POST",
         body: fd,
       });
-      const data = (await r.json().catch(() => ({}))) as { error?: string };
+      const data = (await r.json().catch(() => ({}))) as {
+        error?: string;
+        attachmentWarning?: string;
+      };
       if (!r.ok) {
         setError(data.error ?? "Erro ao criar solicitação.");
         setPending(false);
         return;
+      }
+      if (data.attachmentWarning) {
+        window.alert(
+          "Solicitação criada, mas os anexos não foram guardados no servidor.\n\n" +
+            data.attachmentWarning,
+        );
       }
       form.reset();
       setNewCardOpen(false);
