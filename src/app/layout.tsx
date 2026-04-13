@@ -4,6 +4,9 @@ import { auth } from "@/auth";
 import { AppProviders } from "@/components/AppProviders";
 import "./globals.css";
 
+/** Evita HTML estático em cache na CDN com bundle antigo (ex.: modal de anexos já removido). */
+export const dynamic = "force-dynamic";
+
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",

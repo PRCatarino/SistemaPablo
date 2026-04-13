@@ -190,6 +190,12 @@ export function NewSolicitationModal() {
                 (serverless): <strong className="text-on-surface">não há armazenamento de ficheiros</strong>.
                 Use os campos de briefing acima para descrever logos, cores e referências em texto.
               </p>
+              <p className="mt-3 font-mono text-[0.65rem] text-on-surface-variant/70">
+                Build: {process.env.NEXT_PUBLIC_BUILD_REF ?? "?"}
+                {" — "}
+                Se ainda vês upload de ficheiros, o browser ou a Vercel está a servir versão antiga: redeploy
+                + Ctrl+Shift+R.
+              </p>
             </section>
 
             {error ? (
