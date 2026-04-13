@@ -41,20 +41,11 @@ export function NewSolicitationModal() {
         method: "POST",
         body: fd,
       });
-      const data = (await r.json().catch(() => ({}))) as {
-        error?: string;
-        attachmentWarning?: string;
-      };
+      const data = (await r.json().catch(() => ({}))) as { error?: string };
       if (!r.ok) {
         setError(data.error ?? "Erro ao criar solicitação.");
         setPending(false);
         return;
-      }
-      if (data.attachmentWarning) {
-        window.alert(
-          "Solicitação criada, mas os anexos não foram guardados no servidor.\n\n" +
-            data.attachmentWarning,
-        );
       }
       form.reset();
       setNewCardOpen(false);
@@ -183,10 +174,10 @@ export function NewSolicitationModal() {
               </div>
             </section>
 
-            <section>
-              <div className="mb-6 flex items-center gap-3">
+            <section className="rounded-xl border border-outline-variant/25 bg-surface-container-low/80 p-6">
+              <div className="mb-2 flex items-center gap-3">
                 <MaterialIcon
-                  name="cloud_upload"
+                  name="info"
                   filled
                   className="text-secondary"
                 />
@@ -194,52 +185,10 @@ export function NewSolicitationModal() {
                   Anexos e referências
                 </h2>
               </div>
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low p-8 text-center transition-all hover:bg-surface-container-high">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary/10">
-                    <MaterialIcon
-                      name="upload_file"
-                      className="text-3xl text-secondary"
-                    />
-                  </div>
-                  <p className="font-headline font-bold text-primary">
-                    Anexos do cliente
-                  </p>
-                  <p className="mt-1 font-body text-xs text-on-surface-variant">
-                    Imagens enviadas pelo cliente
-                  </p>
-                  <input
-                    name="attachmentsCliente"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="mt-4 block w-full text-sm text-on-surface-variant file:mr-2 file:rounded-lg file:border-0 file:bg-primary-container file:px-3 file:py-2 file:font-label file:text-xs file:font-bold file:text-on-primary file:uppercase"
-                  />
-                </label>
-                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low p-8 text-center transition-all hover:bg-surface-container-high">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary/10">
-                    <MaterialIcon
-                      name="image"
-                      className="text-3xl text-secondary"
-                    />
-                  </div>
-                  <p className="font-headline font-bold text-primary">
-                    Referências (atendente)
-                  </p>
-                  <p className="mt-1 font-body text-xs text-on-surface-variant">
-                    Referências visuais para a equipe
-                  </p>
-                  <input
-                    name="attachmentsReferencias"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    className="mt-4 block w-full text-sm text-on-surface-variant file:mr-2 file:rounded-lg file:border-0 file:bg-primary-container file:px-3 file:py-2 file:font-label file:text-xs file:font-bold file:text-on-primary file:uppercase"
-                  />
-                </label>
-              </div>
-              <p className="mt-3 text-xs text-on-surface-variant">
-                JPG, PNG, WebP etc. Máx. 12 MB por arquivo, até 24 por grupo.
+              <p className="font-body text-sm text-on-surface-variant">
+                Este ambiente corre na <strong className="text-on-surface">Vercel</strong>{" "}
+                (serverless): <strong className="text-on-surface">não há armazenamento de ficheiros</strong>.
+                Use os campos de briefing acima para descrever logos, cores e referências em texto.
               </p>
             </section>
 

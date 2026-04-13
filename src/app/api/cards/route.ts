@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { saveCardImages } from "@/lib/card-uploads";
 import { prisma } from "@/lib/prisma";
 import { dbCardToDTO } from "@/lib/mappers";
 import { canCreateCard } from "@/lib/permissions";
@@ -21,9 +20,6 @@ const textSchema = z.object({
   briefingMangaEsquerda: z.string().max(8000).optional(),
   briefingEscrita: z.string().max(8000).optional(),
 });
-
-const MAX_FILES = 24;
-const MAX_BYTES = 12 * 1024 * 1024;
 
 export async function GET() {
   const session = await auth();
@@ -53,10 +49,16 @@ export async function POST(req: Request) {
   }
 
   const ct = req.headers.get("content-type") ?? "";
-  if (!ct.includes("multipart/form-data")) {
+  const isForm =
+    ct.includes("multipart/form-data") ||
+    ct.includes("application/x-www-form-urlencoded");
+  if (!isForm) {
     return NextResponse.json(
-      { error: "Envie o formulário como multipart/form-data." },
-      { status: 400 }
+      {
+        error:
+          "Content-Type inválido. Use application/x-www-form-urlencoded ou multipart/form-data.",
+      },
+      { status: 400 },
     );
   }
 
@@ -80,29 +82,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
   }
 
-  const filesCliente = form
-    .getAll("attachmentsCliente")
-    .filter((f): f is File => f instanceof File && f.size > 0);
-  const filesRef = form
-    .getAll("attachmentsReferencias")
-    .filter((f): f is File => f instanceof File && f.size > 0);
-
-  if (filesCliente.length > MAX_FILES || filesRef.length > MAX_FILES) {
-    return NextResponse.json(
-      { error: `Máximo de ${MAX_FILES} arquivos por grupo` },
-      { status: 400 }
-    );
-  }
-
-  for (const f of [...filesCliente, ...filesRef]) {
-    if (f.size > MAX_BYTES) {
-      return NextResponse.json(
-        { error: "Arquivo excede 12 MB" },
-        { status: 400 }
-      );
-    }
-  }
-
   try {
     const card = await prisma.shirtArtCard.create({
       data: {
@@ -123,35 +102,7 @@ export async function POST(req: Request) {
       },
     });
 
-    let urlsCliente: string[] = [];
-    let urlsRef: string[] = [];
-    let attachmentWarning: string | undefined;
-    try {
-      urlsCliente = await saveCardImages(card.id, "cliente", filesCliente);
-      urlsRef = await saveCardImages(card.id, "referencias", filesRef);
-    } catch (uploadErr) {
-      console.error("[POST /api/cards] upload", uploadErr);
-      attachmentWarning =
-        uploadErr instanceof Error
-          ? uploadErr.message
-          : "Não foi possível gravar os ficheiros no disco (permissões, pasta ou espaço).";
-    }
-
-    const updated = await prisma.shirtArtCard.update({
-      where: { id: card.id },
-      data: {
-        attachmentsCliente: urlsCliente,
-        attachmentsReferencias: urlsRef,
-      },
-    });
-
-    return NextResponse.json(
-      {
-        card: dbCardToDTO(updated),
-        ...(attachmentWarning ? { attachmentWarning } : {}),
-      },
-      { status: 201 },
-    );
+    return NextResponse.json({ card: dbCardToDTO(card) }, { status: 201 });
   } catch (err) {
     console.error("[POST /api/cards]", err);
     return NextResponse.json(
